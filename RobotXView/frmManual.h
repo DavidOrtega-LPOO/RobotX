@@ -3,6 +3,7 @@
 #include<math.h>
 
 # define M_PI 3.14159265358979323846 /* pi */
+# define cantidad 150000
 
 namespace RobotXView {
 
@@ -134,10 +135,14 @@ namespace RobotXView {
 
 		}
 	private: System::Void Radar_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		int conexion;
+		//int cantidad = 150000;
+		char* DatosRecibidos[] = {0};
 		Graphics^ objGraphics = e->Graphics;
 		SolidBrush^ objBrocha = gcnew SolidBrush(Color::Black);
 		Point p1(250, 500), p2(250, 0), p3(0, 250), p4(500, 250);
-		/*
+		/*//Para probar con un angulo y distancia de prueba///
+		////////////////////////////////////////////
 		double anguloPrueba=-51.580477;
 		double distanciaPrueba=1352;
 		double puntoPruebaY= calculaY(anguloPrueba, distanciaPrueba);
@@ -152,22 +157,22 @@ namespace RobotXView {
 		objGraphics->DrawLine(Pens::Black, p3, p4);
 		*/
 		RobotXController::PuntoController^ objGestorPunto = gcnew PuntoController();
-		
-		objGestorPunto->LeerPuntos();
+		RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
+		conexion = objGestorConexion->RecibirDatosConexion(objGestorPunto);
+
+		//objGestorPunto->LeerPuntos();
 		for (int i = 0; i < objGestorPunto->listaPuntos->Count; i++) {
 			punto^ objPunto = objGestorPunto->listaPuntos[i];
 			double puntoX = calculaX(objPunto->angulo, objPunto->distancia);
 			double puntoY = calculaY(objPunto->angulo, objPunto->distancia);
 			objGraphics->FillEllipse(objBrocha, puntoX, puntoY, 5, 5);
-
-			objGraphics->DrawEllipse(Pens::Black, 0, 0, 500, 500);
-			objGraphics->DrawEllipse(Pens::Black, 63, 63, 375, 375);
-			objGraphics->DrawEllipse(Pens::Black, 125, 125, 250, 250);
-			objGraphics->DrawEllipse(Pens::Black, 188, 188, 125, 125);
-			objGraphics->DrawLine(Pens::Black, p1, p2);
-			objGraphics->DrawLine(Pens::Black, p3, p4);
 		}
-
+		objGraphics->DrawEllipse(Pens::Black, 0, 0, 500, 500);
+		objGraphics->DrawEllipse(Pens::Black, 63, 63, 375, 375);
+		objGraphics->DrawEllipse(Pens::Black, 125, 125, 250, 250);
+		objGraphics->DrawEllipse(Pens::Black, 188, 188, 125, 125);
+		objGraphics->DrawLine(Pens::Black, p1, p2);
+		objGraphics->DrawLine(Pens::Black, p3, p4);
 	}
 	};
 }

@@ -48,8 +48,12 @@ namespace RobotXView {
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: System::Windows::Forms::PictureBox^ pictureBox3;
 	private: System::Windows::Forms::PictureBox^ pictureBox4;
-	private: System::Windows::Forms::PictureBox^ pictureBox5;
-	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ txtConnection;
+	private: System::Windows::Forms::Button^ btnConnection;
+
+
+
+	private: System::Windows::Forms::Label^ label1;
 
 	private:
 		/// <summary>
@@ -75,13 +79,13 @@ namespace RobotXView {
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox5 = (gcnew System::Windows::Forms::PictureBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->txtConnection = (gcnew System::Windows::Forms::TextBox());
+			this->btnConnection = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// pictureBox1
@@ -117,7 +121,7 @@ namespace RobotXView {
 			// lblLatitud
 			// 
 			this->lblLatitud->AutoSize = true;
-			this->lblLatitud->Location = System::Drawing::Point(503, 283);
+			this->lblLatitud->Location = System::Drawing::Point(586, 298);
 			this->lblLatitud->Name = L"lblLatitud";
 			this->lblLatitud->Size = System::Drawing::Size(55, 17);
 			this->lblLatitud->TabIndex = 3;
@@ -126,7 +130,7 @@ namespace RobotXView {
 			// lblLongitud
 			// 
 			this->lblLongitud->AutoSize = true;
-			this->lblLongitud->Location = System::Drawing::Point(503, 317);
+			this->lblLongitud->Location = System::Drawing::Point(586, 332);
 			this->lblLongitud->Name = L"lblLongitud";
 			this->lblLongitud->Size = System::Drawing::Size(67, 17);
 			this->lblLongitud->TabIndex = 4;
@@ -134,14 +138,14 @@ namespace RobotXView {
 			// 
 			// txtLatitud
 			// 
-			this->txtLatitud->Location = System::Drawing::Point(578, 278);
+			this->txtLatitud->Location = System::Drawing::Point(661, 293);
 			this->txtLatitud->Name = L"txtLatitud";
 			this->txtLatitud->Size = System::Drawing::Size(100, 22);
 			this->txtLatitud->TabIndex = 5;
 			// 
 			// txtLongitud
 			// 
-			this->txtLongitud->Location = System::Drawing::Point(578, 317);
+			this->txtLongitud->Location = System::Drawing::Point(661, 332);
 			this->txtLongitud->Name = L"txtLongitud";
 			this->txtLongitud->Size = System::Drawing::Size(100, 22);
 			this->txtLongitud->TabIndex = 6;
@@ -174,30 +178,41 @@ namespace RobotXView {
 			this->pictureBox4->TabIndex = 9;
 			this->pictureBox4->TabStop = false;
 			// 
-			// pictureBox5
+			// txtConnection
 			// 
-			this->pictureBox5->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox5.Image")));
-			this->pictureBox5->Location = System::Drawing::Point(462, 129);
-			this->pictureBox5->Name = L"pictureBox5";
-			this->pictureBox5->Size = System::Drawing::Size(160, 73);
-			this->pictureBox5->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox5->TabIndex = 12;
-			this->pictureBox5->TabStop = false;
+			this->txtConnection->Location = System::Drawing::Point(557, 135);
+			this->txtConnection->Name = L"txtConnection";
+			this->txtConnection->Size = System::Drawing::Size(284, 22);
+			this->txtConnection->TabIndex = 13;
 			// 
-			// textBox1
+			// btnConnection
 			// 
-			this->textBox1->Location = System::Drawing::Point(532, 170);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(90, 22);
-			this->textBox1->TabIndex = 13;
+			this->btnConnection->Location = System::Drawing::Point(626, 173);
+			this->btnConnection->Name = L"btnConnection";
+			this->btnConnection->Size = System::Drawing::Size(146, 33);
+			this->btnConnection->TabIndex = 14;
+			this->btnConnection->Text = L"Conectarse";
+			this->btnConnection->UseVisualStyleBackColor = true;
+			this->btnConnection->Click += gcnew System::EventHandler(this, &frmInicio::btnConnection_Click);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(658, 106);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(66, 17);
+			this->label1->TabIndex = 15;
+			this->label1->Text = L"Conexión";
+			this->label1->Click += gcnew System::EventHandler(this, &frmInicio::label1_Click);
 			// 
 			// frmInicio
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(862, 530);
-			this->Controls->Add(this->textBox1);
-			this->Controls->Add(this->pictureBox5);
+			this->Controls->Add(this->label1);
+			this->Controls->Add(this->btnConnection);
+			this->Controls->Add(this->txtConnection);
 			this->Controls->Add(this->pictureBox4);
 			this->Controls->Add(this->pictureBox3);
 			this->Controls->Add(this->pictureBox2);
@@ -215,7 +230,6 @@ namespace RobotXView {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox5))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -233,6 +247,11 @@ private: System::Void frmInicio_Load(System::Object^ sender, System::EventArgs^ 
 	this->pictureBox1->Image = Image::FromFile("Banner.jpg");
 	this->pictureBox2->Image = gcnew Bitmap("Manual.png"); 
 	this->pictureBox3->Image = gcnew Bitmap("Autonomo.png");
+
+}
+private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void btnConnection_Click(System::Object^ sender, System::EventArgs^ e) {
 
 }
 };
