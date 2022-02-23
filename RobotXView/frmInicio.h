@@ -54,6 +54,7 @@ namespace RobotXView {
 
 
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ btnDesconectar;
 
 	private:
 		/// <summary>
@@ -82,6 +83,7 @@ namespace RobotXView {
 			this->txtConnection = (gcnew System::Windows::Forms::TextBox());
 			this->btnConnection = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->btnDesconectar = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
@@ -187,9 +189,9 @@ namespace RobotXView {
 			// 
 			// btnConnection
 			// 
-			this->btnConnection->Location = System::Drawing::Point(626, 173);
+			this->btnConnection->Location = System::Drawing::Point(557, 175);
 			this->btnConnection->Name = L"btnConnection";
-			this->btnConnection->Size = System::Drawing::Size(146, 33);
+			this->btnConnection->Size = System::Drawing::Size(111, 33);
 			this->btnConnection->TabIndex = 14;
 			this->btnConnection->Text = L"Conectarse";
 			this->btnConnection->UseVisualStyleBackColor = true;
@@ -205,11 +207,22 @@ namespace RobotXView {
 			this->label1->Text = L"Conexión";
 			this->label1->Click += gcnew System::EventHandler(this, &frmInicio::label1_Click);
 			// 
+			// btnDesconectar
+			// 
+			this->btnDesconectar->Location = System::Drawing::Point(722, 175);
+			this->btnDesconectar->Name = L"btnDesconectar";
+			this->btnDesconectar->Size = System::Drawing::Size(119, 33);
+			this->btnDesconectar->TabIndex = 16;
+			this->btnDesconectar->Text = L"Desconectarse";
+			this->btnDesconectar->UseVisualStyleBackColor = true;
+			this->btnDesconectar->Click += gcnew System::EventHandler(this, &frmInicio::btnDesconectar_Click);
+			// 
 			// frmInicio
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(862, 530);
+			this->Controls->Add(this->btnDesconectar);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->btnConnection);
 			this->Controls->Add(this->txtConnection);
@@ -235,10 +248,11 @@ namespace RobotXView {
 
 		}
 #pragma endregion
-	private: System::Void btnManual_Click(System::Object^ sender, System::EventArgs^ e) {
-		frmManual^ ventanaManual = gcnew frmManual();
-		ventanaManual->ShowDialog();
-	}
+		RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
+private: System::Void btnManual_Click(System::Object^ sender, System::EventArgs^ e) {
+	frmManual^ ventanaManual = gcnew frmManual();
+	ventanaManual->ShowDialog();
+}
 private: System::Void btnAutonomo_Click(System::Object^ sender, System::EventArgs^ e) {
 	frmAutomata^ ventanaAutomata = gcnew frmAutomata();
 	ventanaAutomata->ShowDialog();
@@ -252,7 +266,20 @@ private: System::Void frmInicio_Load(System::Object^ sender, System::EventArgs^ 
 private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void btnConnection_Click(System::Object^ sender, System::EventArgs^ e) {
-
+	//RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
+	
+	//cerrar=0;
+	
+	int valor = objGestorConexion->RealizarConexionSockets();
+	this->txtConnection->Text = objGestorConexion->mensaje;
+	if (objGestorConexion->Conexion != "") {
+		this->txtConnection->Text = objGestorConexion->Conexion;
+	}
+}
+private: System::Void btnDesconectar_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	int valor = objGestorConexion->DesconectarSockets();
+	this->txtConnection->Text = "connection timed out";
 }
 };
 }
