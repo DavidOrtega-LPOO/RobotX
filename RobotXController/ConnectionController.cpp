@@ -234,5 +234,52 @@ int RobotXController::ConnectionController::DesconectarSockets() {
     closesocket(this->slisten);
     WSACleanup();
     //system("pause");
+    this->sClient = 0;
+    this->slisten = 0;
     return 0;
+}
+void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objGestorPunto, SOCKET sClient) {
+
+    char revData[150000];
+    char buffer[150000];
+    //Recibir datos        
+    int ret = recv(sClient, revData, 150000, 0);
+    if (ret > 0)
+    {
+        revData[ret] = 0x00;
+        printf(revData);
+        //cout << endl;
+        //argv[argc] = revData;
+        int j = 0;
+        int cantidad = 0;
+        int i = 0;
+        while (j < 2) {
+            if (revData[i] == '{') {
+                i++;
+                j++;
+            }
+            if (revData[i] == '}') {
+                j++;
+                i++;
+            }
+            buffer[cantidad] = revData[i];
+            i++;
+            cantidad++;
+        }
+        String^ lineas = gcnew String(buffer);
+        objGestorPunto->LeerPuntosArray(lineas);
+        //array<String ^>^ buff = revData;
+        //File::WriteAllLines("Buffer.txt", buff);
+        //File::WriteAllLines()
+    }
+}
+void RobotXController::ConnectionController::EnviarDatos(String^ mensajeEnviar, SOCKET sClient) {
+    //enviar datos
+   
+    const char* sendData = "¡Hola, cliente TCP! Se enviara un mensaje \n";
+    send(sClient, sendData, strlen(sendData), 0);
+    msclr::interop::marshal_context oMarshalContext;//declaracion previa al cambio string-const char*
+    const char* Message = oMarshalContext.marshal_as<const char*>(mensajeEnviar);//cambio de string a const char*
+    send(sClient, Message, strlen(Message), 0);
+   
 }

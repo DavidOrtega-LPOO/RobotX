@@ -250,8 +250,14 @@ namespace RobotXView {
 #pragma endregion
 		RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
 private: System::Void btnManual_Click(System::Object^ sender, System::EventArgs^ e) {
-	frmManual^ ventanaManual = gcnew frmManual();
-	ventanaManual->ShowDialog();
+	if ((objGestorConexion->sClient != 0) || (objGestorConexion->slisten != 0)) {
+		frmManual^ ventanaManual = gcnew frmManual(objGestorConexion);
+		ventanaManual->ShowDialog();
+	}
+	else {
+		MessageBox::Show("No se ha realizado la conexión");
+	}
+	
 }
 private: System::Void btnAutonomo_Click(System::Object^ sender, System::EventArgs^ e) {
 	frmAutomata^ ventanaAutomata = gcnew frmAutomata();

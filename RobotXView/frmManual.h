@@ -29,6 +29,10 @@ namespace RobotXView {
 			//TODO: agregar código de constructor aquí
 			//
 		}
+		frmManual(ConnectionController^ objGestorConexion) {
+			InitializeComponent();
+			this->objGestorConexion = objGestorConexion;
+		}
 
 	protected:
 		/// <summary>
@@ -43,6 +47,11 @@ namespace RobotXView {
 		}
 	private: System::Windows::Forms::Panel^ Radar;
 	protected:
+	private:ConnectionController^ objGestorConexion;
+	private: System::Windows::Forms::Button^ btnUp;
+	private: System::Windows::Forms::Button^ btnLeft;
+	private: System::Windows::Forms::Button^ btnBack;
+	private: System::Windows::Forms::Button^ btnRight;
 
 	private:
 		/// <summary>
@@ -58,23 +67,71 @@ namespace RobotXView {
 		void InitializeComponent(void)
 		{
 			this->Radar = (gcnew System::Windows::Forms::Panel());
+			this->btnUp = (gcnew System::Windows::Forms::Button());
+			this->btnLeft = (gcnew System::Windows::Forms::Button());
+			this->btnBack = (gcnew System::Windows::Forms::Button());
+			this->btnRight = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// Radar
 			// 
 			this->Radar->BackColor = System::Drawing::SystemColors::Window;
-			this->Radar->Location = System::Drawing::Point(328, 13);
+			this->Radar->Location = System::Drawing::Point(644, 13);
 			this->Radar->Margin = System::Windows::Forms::Padding(4);
 			this->Radar->Name = L"Radar";
 			this->Radar->Size = System::Drawing::Size(700, 700);
 			this->Radar->TabIndex = 2;
 			this->Radar->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &frmManual::Radar_Paint);
 			// 
+			// btnUp
+			// 
+			this->btnUp->Location = System::Drawing::Point(217, 35);
+			this->btnUp->Name = L"btnUp";
+			this->btnUp->Size = System::Drawing::Size(95, 36);
+			this->btnUp->TabIndex = 3;
+			this->btnUp->Text = L"Up";
+			this->btnUp->UseVisualStyleBackColor = true;
+			this->btnUp->Click += gcnew System::EventHandler(this, &frmManual::btnUp_Click);
+			// 
+			// btnLeft
+			// 
+			this->btnLeft->Location = System::Drawing::Point(108, 88);
+			this->btnLeft->Name = L"btnLeft";
+			this->btnLeft->Size = System::Drawing::Size(98, 45);
+			this->btnLeft->TabIndex = 4;
+			this->btnLeft->Text = L"Left";
+			this->btnLeft->UseVisualStyleBackColor = true;
+			this->btnLeft->Click += gcnew System::EventHandler(this, &frmManual::btnLeft_Click);
+			// 
+			// btnBack
+			// 
+			this->btnBack->Location = System::Drawing::Point(217, 88);
+			this->btnBack->Name = L"btnBack";
+			this->btnBack->Size = System::Drawing::Size(95, 35);
+			this->btnBack->TabIndex = 5;
+			this->btnBack->Text = L"Back";
+			this->btnBack->UseVisualStyleBackColor = true;
+			this->btnBack->Click += gcnew System::EventHandler(this, &frmManual::btnBack_Click);
+			// 
+			// btnRight
+			// 
+			this->btnRight->Location = System::Drawing::Point(322, 88);
+			this->btnRight->Name = L"btnRight";
+			this->btnRight->Size = System::Drawing::Size(103, 45);
+			this->btnRight->TabIndex = 6;
+			this->btnRight->Text = L"Right";
+			this->btnRight->UseVisualStyleBackColor = true;
+			this->btnRight->Click += gcnew System::EventHandler(this, &frmManual::btnRight_Click);
+			// 
 			// frmManual
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1050, 719);
+			this->ClientSize = System::Drawing::Size(1357, 775);
+			this->Controls->Add(this->btnRight);
+			this->Controls->Add(this->btnBack);
+			this->Controls->Add(this->btnLeft);
+			this->Controls->Add(this->btnUp);
 			this->Controls->Add(this->Radar);
 			this->Name = L"frmManual";
 			this->Text = L"frmManual";
@@ -157,8 +214,8 @@ namespace RobotXView {
 		objGraphics->DrawLine(Pens::Black, p3, p4);
 		*/
 		RobotXController::PuntoController^ objGestorPunto = gcnew PuntoController();
-		RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
-		conexion = objGestorConexion->RecibirDatosConexion(objGestorPunto);
+		//RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
+		this->objGestorConexion->RecibirPuntos(objGestorPunto, this->objGestorConexion->sClient);
 
 		//objGestorPunto->LeerPuntos();
 		for (int i = 0; i < objGestorPunto->listaPuntos->Count; i++) {
@@ -174,5 +231,17 @@ namespace RobotXView {
 		objGraphics->DrawLine(Pens::Black, p1, p2);
 		objGraphics->DrawLine(Pens::Black, p3, p4);
 	}
-	};
+	private: System::Void btnUp_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->objGestorConexion->EnviarDatos("W", this->objGestorConexion->sClient);
+	}
+private: System::Void btnLeft_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("A", this->objGestorConexion->sClient);
+}
+private: System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("S", this->objGestorConexion->sClient);
+}
+private: System::Void btnRight_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("D", this->objGestorConexion->sClient);
+}
+};
 }
