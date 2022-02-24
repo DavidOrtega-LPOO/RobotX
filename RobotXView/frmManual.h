@@ -1,6 +1,7 @@
 #pragma once
 #include<stdio.h>
 #include<math.h>
+#include <windows.h>
 
 # define M_PI 3.14159265358979323846 /* pi */
 # define cantidad 150000
@@ -52,6 +53,9 @@ namespace RobotXView {
 	private: System::Windows::Forms::Button^ btnLeft;
 	private: System::Windows::Forms::Button^ btnBack;
 	private: System::Windows::Forms::Button^ btnRight;
+	private: System::Windows::Forms::PictureBox^ pbImagenEnviada;
+	private: System::Windows::Forms::Button^ btnParar;
+
 
 	private:
 		/// <summary>
@@ -71,6 +75,9 @@ namespace RobotXView {
 			this->btnLeft = (gcnew System::Windows::Forms::Button());
 			this->btnBack = (gcnew System::Windows::Forms::Button());
 			this->btnRight = (gcnew System::Windows::Forms::Button());
+			this->pbImagenEnviada = (gcnew System::Windows::Forms::PictureBox());
+			this->btnParar = (gcnew System::Windows::Forms::Button());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbImagenEnviada))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// Radar
@@ -123,11 +130,32 @@ namespace RobotXView {
 			this->btnRight->UseVisualStyleBackColor = true;
 			this->btnRight->Click += gcnew System::EventHandler(this, &frmManual::btnRight_Click);
 			// 
+			// pbImagenEnviada
+			// 
+			this->pbImagenEnviada->Location = System::Drawing::Point(26, 149);
+			this->pbImagenEnviada->Name = L"pbImagenEnviada";
+			this->pbImagenEnviada->Size = System::Drawing::Size(587, 519);
+			this->pbImagenEnviada->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pbImagenEnviada->TabIndex = 7;
+			this->pbImagenEnviada->TabStop = false;
+			// 
+			// btnParar
+			// 
+			this->btnParar->Location = System::Drawing::Point(548, 35);
+			this->btnParar->Name = L"btnParar";
+			this->btnParar->Size = System::Drawing::Size(75, 23);
+			this->btnParar->TabIndex = 8;
+			this->btnParar->Text = L"Stop";
+			this->btnParar->UseVisualStyleBackColor = true;
+			this->btnParar->Click += gcnew System::EventHandler(this, &frmManual::btnParar_Click);
+			// 
 			// frmManual
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1357, 775);
+			this->Controls->Add(this->btnParar);
+			this->Controls->Add(this->pbImagenEnviada);
 			this->Controls->Add(this->btnRight);
 			this->Controls->Add(this->btnBack);
 			this->Controls->Add(this->btnLeft);
@@ -135,6 +163,8 @@ namespace RobotXView {
 			this->Controls->Add(this->Radar);
 			this->Name = L"frmManual";
 			this->Text = L"frmManual";
+			this->Load += gcnew System::EventHandler(this, &frmManual::frmManual_Load);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbImagenEnviada))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -198,6 +228,7 @@ namespace RobotXView {
 		Graphics^ objGraphics = e->Graphics;
 		SolidBrush^ objBrocha = gcnew SolidBrush(Color::Black);
 		Point p1(250, 500), p2(250, 0), p3(0, 250), p4(500, 250);
+		int permiso=1;
 		/*//Para probar con un angulo y distancia de prueba///
 		////////////////////////////////////////////
 		double anguloPrueba=-51.580477;
@@ -213,35 +244,49 @@ namespace RobotXView {
 		objGraphics->DrawLine(Pens::Black, p1, p2);
 		objGraphics->DrawLine(Pens::Black, p3, p4);
 		*/
-		RobotXController::PuntoController^ objGestorPunto = gcnew PuntoController();
-		//RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
-		this->objGestorConexion->RecibirPuntos(objGestorPunto, this->objGestorConexion->sClient);
-
-		//objGestorPunto->LeerPuntos();
-		for (int i = 0; i < objGestorPunto->listaPuntos->Count; i++) {
-			punto^ objPunto = objGestorPunto->listaPuntos[i];
-			double puntoX = calculaX(objPunto->angulo, objPunto->distancia);
-			double puntoY = calculaY(objPunto->angulo, objPunto->distancia);
-			objGraphics->FillEllipse(objBrocha, puntoX, puntoY, 5, 5);
-		}
 		objGraphics->DrawEllipse(Pens::Black, 0, 0, 500, 500);
 		objGraphics->DrawEllipse(Pens::Black, 63, 63, 375, 375);
 		objGraphics->DrawEllipse(Pens::Black, 125, 125, 250, 250);
 		objGraphics->DrawEllipse(Pens::Black, 188, 188, 125, 125);
 		objGraphics->DrawLine(Pens::Black, p1, p2);
 		objGraphics->DrawLine(Pens::Black, p3, p4);
+		RobotXController::PuntoController^ objGestorPunto = gcnew PuntoController();
+		//RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
+		//this->objGestorConexion->EnviarDatos("Hola, Cliente TCP Se esperan los puntos \n", this->objGestorConexion->sClient);
+		this->objGestorConexion->RecibirPuntos(objGestorPunto, this->objGestorConexion->sClient);
+			
+		
+
+		//objGestorPunto->LeerPuntos();
+		for (int i = 0; i < objGestorPunto->listaPuntos->Count; i++) {	
+			punto^ objPunto = objGestorPunto->listaPuntos[i];
+			double puntoX = calculaX(objPunto->angulo, objPunto->distancia);
+			double puntoY = calculaY(objPunto->angulo, objPunto->distancia);
+			objGraphics->FillEllipse(objBrocha, puntoX, puntoY, 5, 5);
+		}
+		
+		Sleep(5000);
+		
 	}
 	private: System::Void btnUp_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->objGestorConexion->EnviarDatos("W", this->objGestorConexion->sClient);
+		this->objGestorConexion->EnviarDatos("w", this->objGestorConexion->sClient);
 	}
-private: System::Void btnLeft_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->EnviarDatos("A", this->objGestorConexion->sClient);
-}
-private: System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->EnviarDatos("S", this->objGestorConexion->sClient);
-}
-private: System::Void btnRight_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->EnviarDatos("D", this->objGestorConexion->sClient);
+	private: System::Void btnLeft_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("a", this->objGestorConexion->sClient);
+	}
+	private: System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("s", this->objGestorConexion->sClient);
+	}
+	private: System::Void btnRight_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("d", this->objGestorConexion->sClient);
+	}
+	private: System::Void frmManual_Load(System::Object^ sender, System::EventArgs^ e) {
+	//this->objGestorConexion->RecibirImagen(this->objGestorConexion->sClient);
+	//this->pbImagenEnviada->Image
+		//this->objGestorConexion->EnviarDatos("N", this->objGestorConexion->sClient);
+	}
+private: System::Void btnParar_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
 }
 };
 }
