@@ -145,6 +145,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmAutomata.resx">
+      <DependentUpon>frmAutomata.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInicio.resx">
       <DependentUpon>frmInicio.h</DependentUpon>
     </EmbeddedResource>

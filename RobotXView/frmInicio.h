@@ -260,8 +260,13 @@ private: System::Void btnManual_Click(System::Object^ sender, System::EventArgs^
 	
 }
 private: System::Void btnAutonomo_Click(System::Object^ sender, System::EventArgs^ e) {
-	frmAutomata^ ventanaAutomata = gcnew frmAutomata();
-	ventanaAutomata->ShowDialog();
+	if ((objGestorConexion->sClient != 0) || (objGestorConexion->slisten != 0)) {
+		frmAutomata^ ventanaAutomata = gcnew frmAutomata(objGestorConexion);
+		ventanaAutomata->ShowDialog();
+	}
+	else {
+		MessageBox::Show("No se ha realizado la conexión");
+	}
 }
 private: System::Void frmInicio_Load(System::Object^ sender, System::EventArgs^ e) {
 	this->pictureBox1->Image = Image::FromFile("Banner.jpg");

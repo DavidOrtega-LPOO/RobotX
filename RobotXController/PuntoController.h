@@ -15,6 +15,7 @@ namespace RobotXController {
 		PuntoController();
 		void LeerPuntos();
 		void LeerPuntosArray(String^ Lineas);
+		double DistanciaPromedioPuntos(String^ Lineas);
 		//int RecibirDatosConexion(int argc, char* argv[]);
 		//List<punto^>^ ObtenerListaPuntos();
 	};

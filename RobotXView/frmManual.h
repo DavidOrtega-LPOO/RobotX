@@ -26,6 +26,8 @@ namespace RobotXView {
 		frmManual(void)
 		{
 			InitializeComponent();
+			this->objBrocha = gcnew SolidBrush(Color::Black);
+			this-> objGestorPunto = gcnew PuntoController();
 			//
 			//TODO: agregar código de constructor aquí
 			//
@@ -33,6 +35,9 @@ namespace RobotXView {
 		frmManual(ConnectionController^ objGestorConexion) {
 			InitializeComponent();
 			this->objGestorConexion = objGestorConexion;
+			this->objBrocha = gcnew SolidBrush(Color::Black);
+			this->objGestorPunto = gcnew PuntoController();
+			this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
 		}
 
 	protected:
@@ -49,19 +54,29 @@ namespace RobotXView {
 	private: System::Windows::Forms::Panel^ Radar;
 	protected:
 	private:ConnectionController^ objGestorConexion;
+	private: SolidBrush^ objBrocha;
+	private: PuntoController^ objGestorPunto;
 	private: System::Windows::Forms::Button^ btnUp;
 	private: System::Windows::Forms::Button^ btnLeft;
 	private: System::Windows::Forms::Button^ btnBack;
 	private: System::Windows::Forms::Button^ btnRight;
 	private: System::Windows::Forms::PictureBox^ pbImagenEnviada;
 	private: System::Windows::Forms::Button^ btnParar;
+	private: System::Windows::Forms::Timer^ timer1;
+	private: System::Windows::Forms::Button^ btnUP_plus;
+	private: System::Windows::Forms::Button^ btnBack2;
+	private: System::Windows::Forms::Button^ btnBack_plus;
+	private: System::Windows::Forms::Button^ btnStart;
+	private: System::Windows::Forms::Timer^ timer2;
+	private: System::Windows::Forms::Button^ btnActualizar;
+	private: System::ComponentModel::IContainer^ components;
 
 
 	private:
 		/// <summary>
 		/// Variable del diseñador necesaria.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -70,6 +85,7 @@ namespace RobotXView {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->Radar = (gcnew System::Windows::Forms::Panel());
 			this->btnUp = (gcnew System::Windows::Forms::Button());
 			this->btnLeft = (gcnew System::Windows::Forms::Button());
@@ -77,6 +93,13 @@ namespace RobotXView {
 			this->btnRight = (gcnew System::Windows::Forms::Button());
 			this->pbImagenEnviada = (gcnew System::Windows::Forms::PictureBox());
 			this->btnParar = (gcnew System::Windows::Forms::Button());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->btnUP_plus = (gcnew System::Windows::Forms::Button());
+			this->btnBack2 = (gcnew System::Windows::Forms::Button());
+			this->btnBack_plus = (gcnew System::Windows::Forms::Button());
+			this->btnStart = (gcnew System::Windows::Forms::Button());
+			this->timer2 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->btnActualizar = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbImagenEnviada))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -92,7 +115,7 @@ namespace RobotXView {
 			// 
 			// btnUp
 			// 
-			this->btnUp->Location = System::Drawing::Point(217, 35);
+			this->btnUp->Location = System::Drawing::Point(217, 46);
 			this->btnUp->Name = L"btnUp";
 			this->btnUp->Size = System::Drawing::Size(95, 36);
 			this->btnUp->TabIndex = 3;
@@ -116,7 +139,7 @@ namespace RobotXView {
 			this->btnBack->Name = L"btnBack";
 			this->btnBack->Size = System::Drawing::Size(95, 35);
 			this->btnBack->TabIndex = 5;
-			this->btnBack->Text = L"Back";
+			this->btnBack->Text = L"Stop";
 			this->btnBack->UseVisualStyleBackColor = true;
 			this->btnBack->Click += gcnew System::EventHandler(this, &frmManual::btnBack_Click);
 			// 
@@ -132,28 +155,93 @@ namespace RobotXView {
 			// 
 			// pbImagenEnviada
 			// 
-			this->pbImagenEnviada->Location = System::Drawing::Point(26, 149);
+			this->pbImagenEnviada->Location = System::Drawing::Point(50, 256);
 			this->pbImagenEnviada->Name = L"pbImagenEnviada";
-			this->pbImagenEnviada->Size = System::Drawing::Size(587, 519);
+			this->pbImagenEnviada->Size = System::Drawing::Size(563, 412);
 			this->pbImagenEnviada->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pbImagenEnviada->TabIndex = 7;
 			this->pbImagenEnviada->TabStop = false;
 			// 
 			// btnParar
 			// 
-			this->btnParar->Location = System::Drawing::Point(548, 35);
+			this->btnParar->Location = System::Drawing::Point(480, 24);
 			this->btnParar->Name = L"btnParar";
-			this->btnParar->Size = System::Drawing::Size(75, 23);
+			this->btnParar->Size = System::Drawing::Size(157, 26);
 			this->btnParar->TabIndex = 8;
-			this->btnParar->Text = L"Stop";
+			this->btnParar->Text = L"Emergency Stop";
 			this->btnParar->UseVisualStyleBackColor = true;
 			this->btnParar->Click += gcnew System::EventHandler(this, &frmManual::btnParar_Click);
+			// 
+			// timer1
+			// 
+			this->timer1->Interval = 5000;
+			this->timer1->Tick += gcnew System::EventHandler(this, &frmManual::timer1_Tick);
+			// 
+			// btnUP_plus
+			// 
+			this->btnUP_plus->Location = System::Drawing::Point(217, 6);
+			this->btnUP_plus->Name = L"btnUP_plus";
+			this->btnUP_plus->Size = System::Drawing::Size(95, 34);
+			this->btnUP_plus->TabIndex = 9;
+			this->btnUP_plus->Text = L"Up +";
+			this->btnUP_plus->UseVisualStyleBackColor = true;
+			this->btnUP_plus->Click += gcnew System::EventHandler(this, &frmManual::btnUP_plus_Click);
+			// 
+			// btnBack2
+			// 
+			this->btnBack2->Location = System::Drawing::Point(217, 129);
+			this->btnBack2->Name = L"btnBack2";
+			this->btnBack2->Size = System::Drawing::Size(95, 35);
+			this->btnBack2->TabIndex = 10;
+			this->btnBack2->Text = L"Back";
+			this->btnBack2->UseVisualStyleBackColor = true;
+			this->btnBack2->Click += gcnew System::EventHandler(this, &frmManual::btnBack2_Click);
+			// 
+			// btnBack_plus
+			// 
+			this->btnBack_plus->Location = System::Drawing::Point(217, 171);
+			this->btnBack_plus->Name = L"btnBack_plus";
+			this->btnBack_plus->Size = System::Drawing::Size(95, 44);
+			this->btnBack_plus->TabIndex = 11;
+			this->btnBack_plus->Text = L"Back +";
+			this->btnBack_plus->UseVisualStyleBackColor = true;
+			this->btnBack_plus->Click += gcnew System::EventHandler(this, &frmManual::btnBack_plus_Click);
+			// 
+			// btnStart
+			// 
+			this->btnStart->Location = System::Drawing::Point(41, 13);
+			this->btnStart->Name = L"btnStart";
+			this->btnStart->Size = System::Drawing::Size(75, 23);
+			this->btnStart->TabIndex = 12;
+			this->btnStart->Text = L"Start";
+			this->btnStart->UseVisualStyleBackColor = true;
+			this->btnStart->Click += gcnew System::EventHandler(this, &frmManual::btnStart_Click);
+			// 
+			// timer2
+			// 
+			this->timer2->Interval = 5000;
+			this->timer2->Tick += gcnew System::EventHandler(this, &frmManual::timer2_Tick);
+			// 
+			// btnActualizar
+			// 
+			this->btnActualizar->Location = System::Drawing::Point(562, 192);
+			this->btnActualizar->Name = L"btnActualizar";
+			this->btnActualizar->Size = System::Drawing::Size(75, 23);
+			this->btnActualizar->TabIndex = 13;
+			this->btnActualizar->Text = L"Actualizar";
+			this->btnActualizar->UseVisualStyleBackColor = true;
+			this->btnActualizar->Click += gcnew System::EventHandler(this, &frmManual::btnActualizar_Click);
 			// 
 			// frmManual
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1357, 775);
+			this->Controls->Add(this->btnActualizar);
+			this->Controls->Add(this->btnStart);
+			this->Controls->Add(this->btnBack_plus);
+			this->Controls->Add(this->btnBack2);
+			this->Controls->Add(this->btnUP_plus);
 			this->Controls->Add(this->btnParar);
 			this->Controls->Add(this->pbImagenEnviada);
 			this->Controls->Add(this->btnRight);
@@ -164,6 +252,7 @@ namespace RobotXView {
 			this->Name = L"frmManual";
 			this->Text = L"frmManual";
 			this->Load += gcnew System::EventHandler(this, &frmManual::frmManual_Load);
+			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &frmManual::frmManual_KeyPress);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbImagenEnviada))->EndInit();
 			this->ResumeLayout(false);
 
@@ -223,12 +312,9 @@ namespace RobotXView {
 		}
 	private: System::Void Radar_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 		int conexion;
-		//int cantidad = 150000;
-		char* DatosRecibidos[] = {0};
 		Graphics^ objGraphics = e->Graphics;
 		SolidBrush^ objBrocha = gcnew SolidBrush(Color::Black);
 		Point p1(250, 500), p2(250, 0), p3(0, 250), p4(500, 250);
-		int permiso=1;
 		/*//Para probar con un angulo y distancia de prueba///
 		////////////////////////////////////////////
 		double anguloPrueba=-51.580477;
@@ -250,22 +336,22 @@ namespace RobotXView {
 		objGraphics->DrawEllipse(Pens::Black, 188, 188, 125, 125);
 		objGraphics->DrawLine(Pens::Black, p1, p2);
 		objGraphics->DrawLine(Pens::Black, p3, p4);
-		RobotXController::PuntoController^ objGestorPunto = gcnew PuntoController();
+		//RobotXController::PuntoController^ objGestorPunto = gcnew PuntoController();
 		//RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
 		//this->objGestorConexion->EnviarDatos("Hola, Cliente TCP Se esperan los puntos \n", this->objGestorConexion->sClient);
-		this->objGestorConexion->RecibirPuntos(objGestorPunto, this->objGestorConexion->sClient);
-			
-		
-
-		//objGestorPunto->LeerPuntos();
-		for (int i = 0; i < objGestorPunto->listaPuntos->Count; i++) {	
-			punto^ objPunto = objGestorPunto->listaPuntos[i];
+		//this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+		//	
+		//
+		//this->objGestorPunto->LeerPuntos();
+		//Grafica los puntos
+		for (int i = 0; i < this->objGestorPunto->listaPuntos->Count; i++) {	
+			punto^ objPunto = this->objGestorPunto->listaPuntos[i];
 			double puntoX = calculaX(objPunto->angulo, objPunto->distancia);
 			double puntoY = calculaY(objPunto->angulo, objPunto->distancia);
 			objGraphics->FillEllipse(objBrocha, puntoX, puntoY, 5, 5);
 		}
 		
-		Sleep(5000);
+		
 		
 	}
 	private: System::Void btnUp_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -283,10 +369,51 @@ namespace RobotXView {
 	private: System::Void frmManual_Load(System::Object^ sender, System::EventArgs^ e) {
 	//this->objGestorConexion->RecibirImagen(this->objGestorConexion->sClient);
 	//this->pbImagenEnviada->Image
-		//this->objGestorConexion->EnviarDatos("N", this->objGestorConexion->sClient);
+		//this->objGestorConexion->EnviarDatos("N \n", this->objGestorConexion->sClient);
 	}
-private: System::Void btnParar_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
+	private: System::Void btnParar_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
+	}
+	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+		this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+		this->Invalidate();
+	}
+	private: System::Void frmManual_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+		if (e->KeyChar == (char)87 || e->KeyChar == (char)119) {
+			this->objGestorConexion->EnviarDatos("w", this->objGestorConexion->sClient);
+		}
+		if (e->KeyChar == (char)65 || e->KeyChar == (char)97) {
+			this->objGestorConexion->EnviarDatos("a", this->objGestorConexion->sClient);
+		}
+		if (e->KeyChar == (char)83 || e->KeyChar == (char)115) {
+			this->objGestorConexion->EnviarDatos("s", this->objGestorConexion->sClient);
+		}
+		if (e->KeyChar == (char)68 || e->KeyChar == (char)100) {
+			this->objGestorConexion->EnviarDatos("d", this->objGestorConexion->sClient);
+		}
+		if (e->KeyChar == (char)77 || e->KeyChar == (char)109) {
+			this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
+		}
+		this->Invalidate();
+}
+private: System::Void btnUP_plus_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("q", this->objGestorConexion->sClient);
+}
+private: System::Void btnBack2_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("x", this->objGestorConexion->sClient);
+}
+private: System::Void btnBack_plus_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("e", this->objGestorConexion->sClient);
+}
+private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("N", this->objGestorConexion->sClient);
+}
+private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) {
+	//this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+	//this->Invalidate();
+}
+private: System::Void btnActualizar_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
 }
 };
 }

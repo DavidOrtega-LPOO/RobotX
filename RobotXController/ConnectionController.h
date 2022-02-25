@@ -29,6 +29,7 @@ namespace RobotXController {
 		void RecibirPuntos(PuntoController^ objGestorPunto, SOCKET sClient);
 		void RecibirImagen(SOCKET sClient);
 		void EnviarDatos(String^ mensajeEnviar, SOCKET sClient);
+		double RecibirPuntos_Distancia(PuntoController^ objGestorPunto, SOCKET sClient);
 		int DesconectarSockets();
 		//List<punto^>^ ObtenerListaPuntos();
 		//array<string^>^
