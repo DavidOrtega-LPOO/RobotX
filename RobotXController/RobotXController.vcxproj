@@ -117,10 +117,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConnectionController.h" />
+    <ClInclude Include="InsDataController.h" />
     <ClInclude Include="PuntoController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConnectionController.cpp" />
+    <ClCompile Include="InsDataController.cpp" />
     <ClCompile Include="PuntoController.cpp" />
   </ItemGroup>
   <ItemGroup>

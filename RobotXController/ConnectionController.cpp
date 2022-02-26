@@ -379,4 +379,50 @@ double RobotXController::ConnectionController::RecibirPuntos_Distancia(PuntoCont
         return Distancia;
     }
 }
+void RobotXController::ConnectionController::RecibirInsData(InsDataController^ objGestorInsData, SOCKET sClient) {
+
+    char revData[150000];
+    char buffer[150000];
+    //Recibir datos 
+    for (int i = 0; i < 150000; i++) {
+        revData[i] = '*';
+    }
+    RobotXController::ConnectionController::EnviarDatos("InsData \n", sClient);
+    Sleep(500);
+    int ret = recv(sClient, revData, 150000, 0);
+
+    if (ret > 0)
+    {
+        revData[ret] = 0x00;
+        printf(revData);
+        //cout << endl;
+        //argv[argc] = revData;
+        int j = 0;
+        int cantidad = 0;
+        int i = 0;
+        while (j < 2) {
+            if (revData[i] == '{') {
+                i++;
+                j++;
+            }
+            if (revData[i] == '}') {
+                break;
+                j++;
+
+            }
+            if (revData[i] == '*') {
+                break;
+                j++;
+
+            }
+            buffer[cantidad] = revData[i];
+            i++;
+            cantidad++;
+        }
+        String^ lineas = gcnew String(buffer);
+        objGestorInsData->LeerDataINS(lineas);
+        //objGestorPunto->DistanciaPromedioPuntos(lineas);
+       
+    }
+}
 
