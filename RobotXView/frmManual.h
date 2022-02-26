@@ -157,7 +157,7 @@ namespace RobotXView {
 			// 
 			this->pbImagenEnviada->Location = System::Drawing::Point(50, 256);
 			this->pbImagenEnviada->Name = L"pbImagenEnviada";
-			this->pbImagenEnviada->Size = System::Drawing::Size(563, 412);
+			this->pbImagenEnviada->Size = System::Drawing::Size(560, 457);
 			this->pbImagenEnviada->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pbImagenEnviada->TabIndex = 7;
 			this->pbImagenEnviada->TabStop = false;
@@ -225,9 +225,9 @@ namespace RobotXView {
 			// 
 			// btnActualizar
 			// 
-			this->btnActualizar->Location = System::Drawing::Point(562, 192);
+			this->btnActualizar->Location = System::Drawing::Point(535, 192);
 			this->btnActualizar->Name = L"btnActualizar";
-			this->btnActualizar->Size = System::Drawing::Size(75, 23);
+			this->btnActualizar->Size = System::Drawing::Size(102, 34);
 			this->btnActualizar->TabIndex = 13;
 			this->btnActualizar->Text = L"Actualizar";
 			this->btnActualizar->UseVisualStyleBackColor = true;

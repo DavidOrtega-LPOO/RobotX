@@ -97,7 +97,7 @@ int RobotXController::ConnectionController::RecibirDatosConexion(PuntoController
 
 
         //Recibir datos        
-        int ret = recv(sClient, revData, 150000, 0);
+        int ret = recv(sClient, revData, 255, 0);
         if (ret > 0)
         {
             revData[ret] = 0x00;
@@ -248,9 +248,9 @@ void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objG
     for (int i = 0; i < 150000; i++) {
         revData[i] = '*';
     }
-    RobotXController::ConnectionController::EnviarDatos("Hola, Cliente TCP Se esperan los puntos \n", sClient);
+    RobotXController::ConnectionController::EnviarDatos("puntos \n", sClient);
     Sleep(1500);
-    int ret = recv(sClient, revData, 150000, 0);
+    int ret = recv(sClient, revData, 682, 0);
     
     if (ret > 0)
     {
@@ -301,7 +301,7 @@ void RobotXController::ConnectionController::RecibirImagen(SOCKET sClient) {
     char revData[150000];
     char buffer[150000];
     //Recibir datos        
-    int ret = recv(sClient, revData, 150000, 0);
+    int ret = recv(sClient, revData, 255, 0);
     if (ret > 0)
     {
         revData[ret] = 0x00;
@@ -341,9 +341,9 @@ double RobotXController::ConnectionController::RecibirPuntos_Distancia(PuntoCont
     for (int i = 0; i < 150000; i++) {
         revData[i] = '*';
     }
-    RobotXController::ConnectionController::EnviarDatos("Hola, Cliente TCP Se esperan los puntos \n", sClient);
+    RobotXController::ConnectionController::EnviarDatos("puntos \n", sClient);
     Sleep(500);
-    int ret = recv(sClient, revData, 150000, 0);
+    int ret = recv(sClient, revData, 255, 0);
 
     if (ret > 0)
     {
