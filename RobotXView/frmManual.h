@@ -174,7 +174,7 @@ namespace RobotXView {
 			// 
 			// timer1
 			// 
-			this->timer1->Interval = 5000;
+			this->timer1->Interval = 2000;
 			this->timer1->Tick += gcnew System::EventHandler(this, &frmManual::timer1_Tick);
 			// 
 			// btnUP_plus
@@ -219,6 +219,7 @@ namespace RobotXView {
 			// 
 			// timer2
 			// 
+			this->timer2->Enabled = true;
 			this->timer2->Interval = 5000;
 			this->timer2->Tick += gcnew System::EventHandler(this, &frmManual::timer2_Tick);
 			// 
@@ -375,6 +376,7 @@ namespace RobotXView {
 		this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+		
 		this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
 		this->Invalidate();
 	}
@@ -409,8 +411,8 @@ private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ 
 	this->objGestorConexion->EnviarDatos("N", this->objGestorConexion->sClient);
 }
 private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) {
-	//this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
-	//this->Invalidate();
+	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+	this->Invalidate();
 }
 private: System::Void btnActualizar_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);

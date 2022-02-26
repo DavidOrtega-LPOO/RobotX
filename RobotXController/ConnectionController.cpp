@@ -249,7 +249,7 @@ void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objG
         revData[i] = '*';
     }
     RobotXController::ConnectionController::EnviarDatos("Hola, Cliente TCP Se esperan los puntos \n", sClient);
-    Sleep(500);
+    Sleep(1500);
     int ret = recv(sClient, revData, 150000, 0);
     
     if (ret > 0)
