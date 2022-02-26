@@ -111,9 +111,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="InsData.h" />
     <ClInclude Include="Punto.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InsData.cpp" />
     <ClCompile Include="Punto.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

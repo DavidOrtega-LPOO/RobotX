@@ -21,6 +21,7 @@ namespace RobotXView {
 		frmInicio(void)
 		{
 			InitializeComponent();
+			this->objGestorInsData = gcnew InsDataController();
 			//
 			//TODO: agregar código de constructor aquí
 			//
@@ -39,6 +40,7 @@ namespace RobotXView {
 		}
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	protected:
+	private: InsDataController^ objGestorInsData;
 	private: System::Windows::Forms::Button^ btnManual;
 	private: System::Windows::Forms::Button^ btnAutonomo;
 	private: System::Windows::Forms::Label^ lblLatitud;
@@ -273,6 +275,8 @@ private: System::Void frmInicio_Load(System::Object^ sender, System::EventArgs^ 
 	this->pictureBox2->Image = gcnew Bitmap("Manual.png"); 
 	this->pictureBox3->Image = gcnew Bitmap("Autonomo.png");
 
+	
+
 }
 private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
 }
@@ -286,6 +290,10 @@ private: System::Void btnConnection_Click(System::Object^ sender, System::EventA
 	if (objGestorConexion->Conexion != "") {
 		this->txtConnection->Text = objGestorConexion->Conexion;
 	}
+	/*********************INS DATA**********************************/
+	objGestorConexion->RecibirInsData(objGestorInsData, objGestorConexion->sClient);
+	this->txtLatitud->Text = Convert::ToString(objGestorInsData->listaInsData[0]->latitud);
+	this->txtLongitud->Text = Convert::ToString(objGestorInsData->listaInsData[0]->longitud);
 }
 private: System::Void btnDesconectar_Click(System::Object^ sender, System::EventArgs^ e) {
 	
