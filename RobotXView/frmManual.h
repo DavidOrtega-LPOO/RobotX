@@ -220,7 +220,7 @@ namespace RobotXView {
 			// timer2
 			// 
 			this->timer2->Enabled = true;
-			this->timer2->Interval = 5000;
+			this->timer2->Interval = 7000;
 			this->timer2->Tick += gcnew System::EventHandler(this, &frmManual::timer2_Tick);
 			// 
 			// btnActualizar
@@ -378,7 +378,7 @@ namespace RobotXView {
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		
 		this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
-		this->Invalidate();
+		this->Radar->Invalidate();
 	}
 	private: System::Void frmManual_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 		if (e->KeyChar == (char)87 || e->KeyChar == (char)119) {
@@ -412,7 +412,8 @@ private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ 
 }
 private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) {
 	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
-	this->Invalidate();
+	//this->Invalidate();
+	this->Radar->Invalidate();
 }
 private: System::Void btnActualizar_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);

@@ -291,9 +291,9 @@ private: System::Void btnConnection_Click(System::Object^ sender, System::EventA
 		this->txtConnection->Text = objGestorConexion->Conexion;
 	}
 	/*********************INS DATA**********************************/
-	objGestorConexion->RecibirInsData(objGestorInsData, objGestorConexion->sClient);
+	/*objGestorConexion->RecibirInsData(objGestorInsData, objGestorConexion->sClient);
 	this->txtLatitud->Text = Convert::ToString(objGestorInsData->listaInsData[0]->latitud);
-	this->txtLongitud->Text = Convert::ToString(objGestorInsData->listaInsData[0]->longitud);
+	this->txtLongitud->Text = Convert::ToString(objGestorInsData->listaInsData[0]->longitud);*/
 }
 private: System::Void btnDesconectar_Click(System::Object^ sender, System::EventArgs^ e) {
 	

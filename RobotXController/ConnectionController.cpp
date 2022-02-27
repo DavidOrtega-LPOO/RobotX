@@ -44,7 +44,10 @@ int RobotXController::ConnectionController::RecibirDatosConexion(PuntoController
     }
 
     // Crear socket    
-    SOCKET slisten = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    //SOCKET TCP
+    //SOCKET slisten = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    //Socket UDP
+    SOCKET slisten = socket(AF_INET, SOCK_DGRAM, 0);
     if (slisten == INVALID_SOCKET)
     {
         printf("socket error !");
@@ -163,12 +166,14 @@ int RobotXController::ConnectionController::RealizarConexionSockets() {
     }
 
     // Crear socket    
+    // Socket TCP
     //SOCKET slisten = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-     this->slisten = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    this->slisten = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    //Socket UDP
+    //this->slisten = socket(AF_INET, SOCK_DGRAM, 0);
     if (this->slisten == INVALID_SOCKET)
     {
         this->mensaje = "socket error !";
-        //printf("socket error !");
         return 0;
     }
 
@@ -177,48 +182,37 @@ int RobotXController::ConnectionController::RealizarConexionSockets() {
     sin.sin_family = AF_INET;
     sin.sin_port = htons(5656);
     sin.sin_addr.S_un.S_addr = INADDR_ANY;
-    if (bind(this->slisten, (LPSOCKADDR)&sin, sizeof(sin)) == SOCKET_ERROR)
+    if (bind(this->slisten, (LPSOCKADDR)&sin, sizeof(sin)) == SOCKET_ERROR) //TCP
+    //if(bind(this->slisten, (struct sockaddr*)&sin, sizeof(sin)) == SOCKET_ERROR)//UDP
     {
         this->mensaje = "bind error !";
-        //printf("bind error !");
     }
 
     //Empieza a escuchar    
     if (listen(this->slisten, 5) == SOCKET_ERROR)
     {
         this->mensaje = "listen error !";
-        //printf("listen error !");
         return 0;
     }
 
     // Recibir datos en un bucle    
-    //SOCKET sClient;
     sockaddr_in remoteAddr;
     int nAddrlen = sizeof(remoteAddr);
     int ti = 5;
     int k = 1;
-    //array<String^>^ revData;
-    //char revData[150000];
-    //char envData[150000];
-    //char buffer[150000];
-
-
+   
     while (k == 1)
     {
-        //--ti;
+        
         if (k == 1) {
             k--;
-            //printf("Esperando para conectar ... \n");
             this->mensaje = "Esperando para conectar ...";
-            //MessageBox::Show("No se ha realizado la conexión");
             this->sClient = accept(slisten, (SOCKADDR*)&remoteAddr, &nAddrlen);
             if (this->sClient == INVALID_SOCKET)
             {
                 this->mensaje = "accept error !";
-                //printf("accept error !");
                 continue;
             }
-            //printf("Established Connection:%s \r \n", inet_ntoa(remoteAddr.sin_addr));
             String^ lineas = gcnew String(inet_ntoa(remoteAddr.sin_addr));
             this->Conexion = "Connection Established: " + lineas;
 
@@ -242,50 +236,152 @@ int RobotXController::ConnectionController::DesconectarSockets() {
 }
 void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objGestorPunto, SOCKET sClient) {
 
-    char revData[150000];
-    char buffer[150000];
-    //Recibir datos 
-    for (int i = 0; i < 150000; i++) {
+    char revData[20000];
+    char buffer[20000];
+    char bufferFinal[20000];
+    int bytes = 0;
+    int bytesRecibidos = 0;
+    int fin = 0;
+    //Inicializar el buffer llenandolo del caracter *
+    //Enviar el mensaje "puntos \n" para que el raspberry envie los puntos
+    for (int i = 0; i < 20000; i++) {
         revData[i] = '*';
     }
     RobotXController::ConnectionController::EnviarDatos("puntos \n", sClient);
-    Sleep(1500);
-    int ret = recv(sClient, revData, 682, 0);
     
-    if (ret > 0)
-    {
+    for (int i = 0; i < 20000; i++) {
+        buffer[i] = '*';
+    }
+    //Sleep(1500);
+    int retBytes = recv(sClient, revData, 20000, 0);
+    if (retBytes > 0) {
+        revData[retBytes]= 0x00;
+        char BytesEnviados[10];
+        BytesEnviados[retBytes] = 0x00;
+        for (int i = 0; i < retBytes; i++) {
+            BytesEnviados[i] = revData[i];
+        }
+        String^ Bytes_String = gcnew String(BytesEnviados);
+        bytes = Convert::ToInt32(Bytes_String);
+        bytesRecibidos = bytes;
+    }
+    
+    //Recibir Puntos
+    //ret = bytes recibidos, revdata = el buffer donde se encuentran almacenados los datos, 20000 es
+    //la cantidad maxima de bytes que se pueden recibir 
+    for (int i = 0; i < 20000; i++) {
+        bufferFinal[i] = '*';
+    }
+    /******************************************/
+    //int ret = recv(sClient, revData, 16384, 0);
+    int ret = recv(sClient, revData, 20000, 0);
+    /******************************************/
+    
+    if (ret > 0) {
         revData[ret] = 0x00;
-        printf(revData);
-        //cout << endl;
-        //argv[argc] = revData;
-        int j = 0;
-        int cantidad = 0;
-        int i = 0;
-        while (j < 2) {
-            if (revData[i] == '{') {
-                i++;
-                j++;
-            }
-            if (revData[i] == '}') {
-                break;
-                j++;
+        if (ret != bytes) {
+            int x = 0;
+            while (bytes > 0) {
+                for (int i = 0; i < ret;i++) {
+                    buffer[x + i] = revData[i];
+                }
+                bytes = bytes - ret;
+                x = x + ret;
+                if (bytes>0) {
+                    int ret = recv(sClient, revData, 20000, 0);
+                }
                 
             }
-            if (revData[i] == '*') {
-                break;
-                j++;
+            int cantidad = 0;
+            int i = 0;
+            while (fin < 2) {
+                if (buffer[i] == '{') {
+                    i++;
+                    fin++;
+                }
+                if (buffer[i] == '}') {
+                    break;
+                    fin++;
 
+                }
+                if (i == bytesRecibidos) {
+                    break;
+                    fin++;
+
+                }
+                bufferFinal[cantidad] = buffer[i];
+                i++;
+                cantidad++;
             }
-            buffer[cantidad] = revData[i];
-            i++;
-            cantidad++;
+            bufferFinal[bytesRecibidos-2] = 0x00;
+            String^ lineas = gcnew String(bufferFinal);
+            objGestorPunto->LeerPuntosArray(lineas);
         }
-        String^ lineas = gcnew String(buffer);
-        objGestorPunto->LeerPuntosArray(lineas);
-        //array<String ^>^ buff = revData;
-        //File::WriteAllLines("Buffer.txt", buff);
-        //File::WriteAllLines()
+        else {
+            revData[ret] = 0x00;
+            int j = 0;
+            int cantidad = 0;
+            int i = 0;
+            while (j < 2) {
+                if (revData[i] == '{') {
+                    i++;
+                    j++;
+                }
+                if (revData[i] == '}') {
+                    break;
+                    j++;
+
+                }
+                if (revData[i] == '*') {
+                    break;
+                    j++;
+
+                }
+                buffer[cantidad] = revData[i];
+                i++;
+                cantidad++;
+            }
+            String^ lineas = gcnew String(buffer);
+            objGestorPunto->LeerPuntosArray(lineas);
+        }
+        
     }
+    //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+    //if (ret > 0)
+    //{
+    //    revData[ret] = 0x00;
+    //    printf(revData);
+    //    //cout << endl;
+    //    //argv[argc] = revData;
+    //    int j = 0;
+    //    int cantidad = 0;
+    //    int i = 0;
+    //    while (j < 2) {
+    //        if (revData[i] == '{') {
+    //            i++;
+    //            j++;
+    //        }
+    //        if (revData[i] == '}') {
+    //            break;
+    //            j++;
+    //            
+    //        }
+    //        if (revData[i] == '*') {
+    //            break;
+    //            j++;
+
+    //        }
+    //        buffer[cantidad] = revData[i];
+    //        i++;
+    //        cantidad++;
+    //    }
+    //    String^ lineas = gcnew String(buffer);
+    //    objGestorPunto->LeerPuntosArray(lineas);
+    //    //array<String ^>^ buff = revData;
+    //    //File::WriteAllLines("Buffer.txt", buff);
+    //    //File::WriteAllLines()
+    //}
 }
 void RobotXController::ConnectionController::EnviarDatos(String^ mensajeEnviar, SOCKET sClient) {
     //enviar datos
