@@ -289,13 +289,21 @@ void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objG
 }
 void RobotXController::ConnectionController::EnviarDatos(String^ mensajeEnviar, SOCKET sClient) {
     //enviar datos
-   
+    
     const char* sendData = "Hola, cliente TCP Se enviara un mensaje \n";
     send(sClient, sendData, strlen(sendData), 0);
     msclr::interop::marshal_context oMarshalContext;//declaracion previa al cambio string-const char*
     const char* Message = oMarshalContext.marshal_as<const char*>(mensajeEnviar);//cambio de string a const char*
     send(sClient, Message, strlen(Message), 0);
    
+}
+void RobotXController::ConnectionController::EnviarTeamID(String^ mensajeEnviar, SOCKET sClient) {
+    //enviar datos
+
+    msclr::interop::marshal_context oMarshalContext;//declaracion previa al cambio string-const char*
+    const char* Message = oMarshalContext.marshal_as<const char*>(mensajeEnviar);//cambio de string a const char*
+    send(sClient, Message, strlen(Message), 0);
+
 }
 void RobotXController::ConnectionController::RecibirImagen(SOCKET sClient) {
     char revData[150000];
@@ -381,15 +389,15 @@ double RobotXController::ConnectionController::RecibirPuntos_Distancia(PuntoCont
 }
 void RobotXController::ConnectionController::RecibirInsData(InsDataController^ objGestorInsData, SOCKET sClient) {
 
-    char revData[150000];
-    char buffer[150000];
+    char revData[1024];
+    char buffer[1024];
     //Recibir datos 
-    for (int i = 0; i < 150000; i++) {
+    for (int i = 0; i < 1024; i++) {
         revData[i] = '*';
     }
     RobotXController::ConnectionController::EnviarDatos("InsData \n", sClient);
     Sleep(500);
-    int ret = recv(sClient, revData, 150000, 0);
+    int ret = recv(sClient, revData, 1024, 0);
 
     if (ret > 0)
     {
@@ -426,3 +434,16 @@ void RobotXController::ConnectionController::RecibirInsData(InsDataController^ o
     }
 }
 
+/*int RobotXController::ReconoceTeamID(String^ codigoInsertado) {
+    int Reconoce = 0;
+    //array<String^>^ opciones = { "$RXPTH", "$RXENC", "$RXDOK" };
+
+    //for (int i = 0; i < sizeof(opciones); i++)
+    //{
+    if ((codigoInsertado == "$RXPTH") || (codigoInsertado == "$RXENC") || (codigoInsertado == "%$RXDOK"))
+    {
+        Reconoce = 1;
+    }
+    //}
+    return Reconoce;
+}*/

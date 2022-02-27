@@ -69,27 +69,30 @@ namespace RobotXView {
 			// 
 			// btnTask1
 			// 
-			this->btnTask1->Location = System::Drawing::Point(68, 50);
+			this->btnTask1->Location = System::Drawing::Point(51, 34);
+			this->btnTask1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->btnTask1->Name = L"btnTask1";
-			this->btnTask1->Size = System::Drawing::Size(75, 23);
+			this->btnTask1->Size = System::Drawing::Size(56, 19);
 			this->btnTask1->TabIndex = 0;
 			this->btnTask1->Text = L"Task1";
 			this->btnTask1->UseVisualStyleBackColor = true;
 			// 
 			// btnTask2
 			// 
-			this->btnTask2->Location = System::Drawing::Point(68, 95);
+			this->btnTask2->Location = System::Drawing::Point(51, 103);
+			this->btnTask2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->btnTask2->Name = L"btnTask2";
-			this->btnTask2->Size = System::Drawing::Size(75, 23);
+			this->btnTask2->Size = System::Drawing::Size(56, 19);
 			this->btnTask2->TabIndex = 1;
 			this->btnTask2->Text = L"Task2";
 			this->btnTask2->UseVisualStyleBackColor = true;
 			// 
 			// btnTask3
 			// 
-			this->btnTask3->Location = System::Drawing::Point(68, 140);
+			this->btnTask3->Location = System::Drawing::Point(51, 159);
+			this->btnTask3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->btnTask3->Name = L"btnTask3";
-			this->btnTask3->Size = System::Drawing::Size(75, 23);
+			this->btnTask3->Size = System::Drawing::Size(56, 19);
 			this->btnTask3->TabIndex = 2;
 			this->btnTask3->Text = L"Task3";
 			this->btnTask3->UseVisualStyleBackColor = true;
@@ -97,22 +100,24 @@ namespace RobotXView {
 			// 
 			// btnTask4
 			// 
-			this->btnTask4->Location = System::Drawing::Point(68, 185);
+			this->btnTask4->Location = System::Drawing::Point(51, 219);
+			this->btnTask4->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->btnTask4->Name = L"btnTask4";
-			this->btnTask4->Size = System::Drawing::Size(75, 23);
+			this->btnTask4->Size = System::Drawing::Size(56, 19);
 			this->btnTask4->TabIndex = 3;
 			this->btnTask4->Text = L"Task4";
 			this->btnTask4->UseVisualStyleBackColor = true;
 			// 
 			// frmAutomata
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(663, 407);
+			this->ClientSize = System::Drawing::Size(623, 500);
 			this->Controls->Add(this->btnTask4);
 			this->Controls->Add(this->btnTask3);
 			this->Controls->Add(this->btnTask2);
 			this->Controls->Add(this->btnTask1);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"frmAutomata";
 			this->Text = L"frmAutomata";
 			this->Load += gcnew System::EventHandler(this, &frmAutomata::frmAutomata_Load);
