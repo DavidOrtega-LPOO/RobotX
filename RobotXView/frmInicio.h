@@ -291,10 +291,18 @@ namespace RobotXView {
 		RobotXController::ConnectionController^ objGestorConexion = gcnew ConnectionController();
 
 private: System::Void btnManual_Click(System::Object^ sender, System::EventArgs^ e) {
+	
 	if ((objGestorConexion->sClient != 0) || (objGestorConexion->slisten != 0)) {
+		objGestorConexion->EnviarDatos("manual \n", objGestorConexion->sClient);
+		Sleep(200);
 		frmManual^ ventanaManual = gcnew frmManual(objGestorConexion);
 		ventanaManual->ShowDialog();
-	}
+		//objGestorConexion->EnviarTeamID("manual \n", objGestorConexion->sClient);
+		
+		//if (objGestorConexion->Conexion != "") {
+			//objGestorConexion->EnviarDatos("Codigo de la tarea \n", objGestorConexion->sClient);
+		}
+	//}
 	else {
 		MessageBox::Show("No se ha realizado la conexión");
 	}
@@ -302,6 +310,8 @@ private: System::Void btnManual_Click(System::Object^ sender, System::EventArgs^
 }
 private: System::Void btnAutonomo_Click(System::Object^ sender, System::EventArgs^ e) {
 	if ((objGestorConexion->sClient != 0) || (objGestorConexion->slisten != 0)) {
+		objGestorConexion->EnviarDatos("autonomo \n", objGestorConexion->sClient);
+		Sleep(200);
 		frmAutomata^ ventanaAutomata = gcnew frmAutomata(objGestorConexion);
 		ventanaAutomata->ShowDialog();
 	}
@@ -333,7 +343,8 @@ private: System::Void btnConnection_Click(System::Object^ sender, System::EventA
 		}
 
 		/************************TeamID********************************/
-		objGestorConexion->EnviarDatos("Team ID", objGestorConexion->sClient);
+		objGestorConexion->EnviarDatos("Team ID \n", objGestorConexion->sClient);
+		Sleep(500);
 		objGestorConexion->EnviarTeamID(TeamID, objGestorConexion->sClient);
 		/*********************INS DATA**********************************/
 		objGestorConexion->RecibirInsData(objGestorInsData, objGestorConexion->sClient);

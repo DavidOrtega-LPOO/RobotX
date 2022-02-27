@@ -308,8 +308,6 @@ namespace RobotXView {
 					return puntoY;
 				}
 			}
-
-
 		}
 	private: System::Void Radar_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 		int conexion;
@@ -349,12 +347,10 @@ namespace RobotXView {
 			punto^ objPunto = this->objGestorPunto->listaPuntos[i];
 			double puntoX = calculaX(objPunto->angulo, objPunto->distancia);
 			double puntoY = calculaY(objPunto->angulo, objPunto->distancia);
-			objGraphics->FillEllipse(objBrocha, puntoX, puntoY, 5, 5);
-		}
-		
-		
-		
+			objGraphics->FillEllipse(objBrocha, (int)puntoX, (int)puntoY, 5, 5);	//se movio
+		}	
 	}
+
 	private: System::Void btnUp_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->objGestorConexion->EnviarDatos("w", this->objGestorConexion->sClient);
 	}
@@ -377,8 +373,8 @@ namespace RobotXView {
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		
-		this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
-		this->Invalidate();
+		/*this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+		this->Invalidate();*/
 	}
 	private: System::Void frmManual_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 		if (e->KeyChar == (char)87 || e->KeyChar == (char)119) {
@@ -411,11 +407,11 @@ private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ 
 	this->objGestorConexion->EnviarDatos("N", this->objGestorConexion->sClient);
 }
 private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
-	this->Invalidate();
+	/*this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+	this->Invalidate();*/
 }
 private: System::Void btnActualizar_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+	//this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
 }
 };
 }

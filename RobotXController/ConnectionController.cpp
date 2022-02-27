@@ -249,7 +249,7 @@ void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objG
         revData[i] = '*';
     }
     RobotXController::ConnectionController::EnviarDatos("Hola, Cliente TCP Se esperan los puntos \n", sClient);
-    Sleep(1500);
+    Sleep(1000);
     int ret = recv(sClient, revData, 150000, 0);
     
     if (ret > 0)
@@ -290,20 +290,20 @@ void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objG
 void RobotXController::ConnectionController::EnviarDatos(String^ mensajeEnviar, SOCKET sClient) {
     //enviar datos
     
-    const char* sendData = "Hola, cliente TCP Se enviara un mensaje \n";
-    send(sClient, sendData, strlen(sendData), 0);
+    /*const char* sendData = "Hola, cliente TCP Se enviara un mensaje \n";
+    send(sClient, sendData, strlen(sendData), 0);*/
+    //Sleep(100);
     msclr::interop::marshal_context oMarshalContext;//declaracion previa al cambio string-const char*
     const char* Message = oMarshalContext.marshal_as<const char*>(mensajeEnviar);//cambio de string a const char*
     send(sClient, Message, strlen(Message), 0);
-   
+    Sleep(100);
 }
 void RobotXController::ConnectionController::EnviarTeamID(String^ mensajeEnviar, SOCKET sClient) {
     //enviar datos
-
     msclr::interop::marshal_context oMarshalContext;//declaracion previa al cambio string-const char*
     const char* Message = oMarshalContext.marshal_as<const char*>(mensajeEnviar);//cambio de string a const char*
     send(sClient, Message, strlen(Message), 0);
-
+    Sleep(100);
 }
 void RobotXController::ConnectionController::RecibirImagen(SOCKET sClient) {
     char revData[150000];
@@ -396,7 +396,7 @@ void RobotXController::ConnectionController::RecibirInsData(InsDataController^ o
         revData[i] = '*';
     }
     RobotXController::ConnectionController::EnviarDatos("InsData \n", sClient);
-    Sleep(500);
+    Sleep(1000);
     int ret = recv(sClient, revData, 1024, 0);
 
     if (ret > 0)
