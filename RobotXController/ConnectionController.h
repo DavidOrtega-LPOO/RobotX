@@ -30,11 +30,13 @@ namespace RobotXController {
 		void RecibirPuntos(PuntoController^ objGestorPunto, SOCKET sClient);
 		void RecibirImagen(SOCKET sClient);
 		void EnviarDatos(String^ mensajeEnviar, SOCKET sClient);
+		void EnviarTeamID(String^ mensajeEnviar, SOCKET sClient);
 		double RecibirPuntos_Distancia(PuntoController^ objGestorPunto, SOCKET sClient);
 		/*******************************************************************************/
 		void RecibirInsData(InsDataController^ objGestorInsData, SOCKET sClient);
 
 		int DesconectarSockets();
+		//int ReconoceTeamID(String^ codigoInsertado);
 		//List<punto^>^ ObtenerListaPuntos();
 		//array<string^>^
 	};

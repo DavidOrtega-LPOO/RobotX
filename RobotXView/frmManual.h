@@ -308,8 +308,6 @@ namespace RobotXView {
 					return puntoY;
 				}
 			}
-
-
 		}
 	private: System::Void Radar_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 		int conexion;
@@ -349,12 +347,10 @@ namespace RobotXView {
 			punto^ objPunto = this->objGestorPunto->listaPuntos[i];
 			double puntoX = calculaX(objPunto->angulo, objPunto->distancia);
 			double puntoY = calculaY(objPunto->angulo, objPunto->distancia);
-			objGraphics->FillEllipse(objBrocha, puntoX, puntoY, 5, 5);
-		}
-		
-		
-		
+			objGraphics->FillEllipse(objBrocha, (int)puntoX, (int)puntoY, 5, 5);	//se movio
+		}	
 	}
+
 	private: System::Void btnUp_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->objGestorConexion->EnviarDatos("w", this->objGestorConexion->sClient);
 	}
@@ -416,7 +412,7 @@ private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) 
 	this->Radar->Invalidate();
 }
 private: System::Void btnActualizar_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+	//this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
 }
 };
 }
