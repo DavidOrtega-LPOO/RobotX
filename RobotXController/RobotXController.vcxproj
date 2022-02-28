@@ -119,11 +119,13 @@
     <ClInclude Include="ConnectionController.h" />
     <ClInclude Include="InsDataController.h" />
     <ClInclude Include="PuntoController.h" />
+    <ClInclude Include="Reporte3Controller.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConnectionController.cpp" />
     <ClCompile Include="InsDataController.cpp" />
     <ClCompile Include="PuntoController.cpp" />
+    <ClCompile Include="Reporte3Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Net" />

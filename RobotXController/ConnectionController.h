@@ -1,6 +1,7 @@
 #pragma once
 #include"PuntoController.h"
 #include"InsDataController.h"
+#include"Reporte3Controller.h"
 #include<winsock.h>  
 #include<stdio.h>  
 #include<iostream>  
@@ -34,6 +35,7 @@ namespace RobotXController {
 		double RecibirPuntos_Distancia(PuntoController^ objGestorPunto, SOCKET sClient);
 		/*******************************************************************************/
 		void RecibirInsData(InsDataController^ objGestorInsData, SOCKET sClient);
+		void RecibirReporte3(Reporte3Controller^ objGestorReporte3, SOCKET sClient);
 
 		int DesconectarSockets();
 		//int ReconoceTeamID(String^ codigoInsertado);
