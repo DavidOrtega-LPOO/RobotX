@@ -70,6 +70,7 @@ namespace RobotXView {
 	private: System::Windows::Forms::Button^ btnStart;
 	private: System::Windows::Forms::Timer^ timer2;
 	private: System::Windows::Forms::TextBox^ txtMensaje;
+	private: System::Windows::Forms::Button^ btnCerrarManual;
 
 	private: System::ComponentModel::IContainer^ components;
 
@@ -102,13 +103,14 @@ namespace RobotXView {
 			this->btnStart = (gcnew System::Windows::Forms::Button());
 			this->timer2 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->txtMensaje = (gcnew System::Windows::Forms::TextBox());
+			this->btnCerrarManual = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbImagenEnviada))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// Radar
 			// 
 			this->Radar->BackColor = System::Drawing::SystemColors::Window;
-			this->Radar->Location = System::Drawing::Point(644, 13);
+			this->Radar->Location = System::Drawing::Point(644, 88);
 			this->Radar->Margin = System::Windows::Forms::Padding(4);
 			this->Radar->Name = L"Radar";
 			this->Radar->Size = System::Drawing::Size(700, 700);
@@ -227,17 +229,28 @@ namespace RobotXView {
 			// 
 			// txtMensaje
 			// 
-			this->txtMensaje->Location = System::Drawing::Point(644, 729);
+			this->txtMensaje->Location = System::Drawing::Point(644, 804);
 			this->txtMensaje->Name = L"txtMensaje";
 			this->txtMensaje->ReadOnly = true;
 			this->txtMensaje->Size = System::Drawing::Size(701, 22);
 			this->txtMensaje->TabIndex = 13;
 			// 
+			// btnCerrarManual
+			// 
+			this->btnCerrarManual->Location = System::Drawing::Point(1131, 17);
+			this->btnCerrarManual->Name = L"btnCerrarManual";
+			this->btnCerrarManual->Size = System::Drawing::Size(152, 33);
+			this->btnCerrarManual->TabIndex = 14;
+			this->btnCerrarManual->Text = L"Cerrar Modo Manual";
+			this->btnCerrarManual->UseVisualStyleBackColor = true;
+			this->btnCerrarManual->Click += gcnew System::EventHandler(this, &frmManual::btnCerrarManual_Click);
+			// 
 			// frmManual
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1357, 775);
+			this->ClientSize = System::Drawing::Size(1357, 872);
+			this->Controls->Add(this->btnCerrarManual);
 			this->Controls->Add(this->txtMensaje);
 			this->Controls->Add(this->btnStart);
 			this->Controls->Add(this->btnBack_plus);
@@ -421,6 +434,11 @@ private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) 
 }
 private: System::Void btnActualizar_Click(System::Object^ sender, System::EventArgs^ e) {
 	//this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+}
+private: System::Void btnCerrarManual_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("salir manual \n", this->objGestorConexion->sClient);
+	Sleep(100);
+	Application::Exit();
 }
 };
 }
