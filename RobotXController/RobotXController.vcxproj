@@ -119,12 +119,14 @@
     <ClInclude Include="ConnectionController.h" />
     <ClInclude Include="InsDataController.h" />
     <ClInclude Include="PuntoController.h" />
+    <ClInclude Include="Reporte2Controller.h" />
     <ClInclude Include="Reporte3Controller.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConnectionController.cpp" />
     <ClCompile Include="InsDataController.cpp" />
     <ClCompile Include="PuntoController.cpp" />
+    <ClCompile Include="Reporte2Controller.cpp" />
     <ClCompile Include="Reporte3Controller.cpp" />
   </ItemGroup>
   <ItemGroup>

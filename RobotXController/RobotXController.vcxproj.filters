@@ -27,6 +27,9 @@
     <ClInclude Include="Reporte3Controller.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Reporte2Controller.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PuntoController.cpp">
@@ -39,6 +42,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Reporte3Controller.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Reporte2Controller.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

@@ -113,11 +113,13 @@
   <ItemGroup>
     <ClInclude Include="InsData.h" />
     <ClInclude Include="Punto.h" />
+    <ClInclude Include="Reporte2.h" />
     <ClInclude Include="Reporte3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InsData.cpp" />
     <ClCompile Include="Punto.cpp" />
+    <ClCompile Include="Reporte2.cpp" />
     <ClCompile Include="Reporte3.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

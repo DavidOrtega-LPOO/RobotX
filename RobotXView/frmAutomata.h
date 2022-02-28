@@ -22,14 +22,14 @@ namespace RobotXView {
 		{
 			InitializeComponent();
 			this->objReporte3 = gcnew Reporte3Controller();
-			//this->objGestorConexion = gcnew ConnectionController();
-			//
+						//
 			//TODO: agregar código de constructor aquí
 			//
 		}
 		frmAutomata(ConnectionController^ objGestorConexion) {
 			InitializeComponent();
 			this->objGestorConexion = objGestorConexion;
+			this->objReporte3 = gcnew Reporte3Controller();
 			
 		}
 
@@ -118,8 +118,14 @@ namespace RobotXView {
 	private: System::Windows::Forms::Label^ label22;
 	private: System::Windows::Forms::Label^ label23;
 	private: System::Windows::Forms::Label^ label24;
-	private: System::Windows::Forms::Button^ button1;
+private: System::Windows::Forms::Button^ btnSalir1;
+
+
 	private: System::Windows::Forms::Button^ btnEnviar;
+private: System::Windows::Forms::Button^ btnSalir2;
+private: System::Windows::Forms::Button^ btnSalir3;
+private: System::Windows::Forms::Label^ label7;
+private: System::Windows::Forms::TextBox^ textBox7;
 
 
 	private:
@@ -141,7 +147,7 @@ namespace RobotXView {
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabInicio = (gcnew System::Windows::Forms::TabPage());
 			this->tabTask1 = (gcnew System::Windows::Forms::TabPage());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->btnSalir1 = (gcnew System::Windows::Forms::Button());
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
@@ -155,6 +161,9 @@ namespace RobotXView {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->tabTask2 = (gcnew System::Windows::Forms::TabPage());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
+			this->btnSalir2 = (gcnew System::Windows::Forms::Button());
 			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
@@ -174,6 +183,7 @@ namespace RobotXView {
 			this->label17 = (gcnew System::Windows::Forms::Label());
 			this->label18 = (gcnew System::Windows::Forms::Label());
 			this->tabTask3 = (gcnew System::Windows::Forms::TabPage());
+			this->btnSalir3 = (gcnew System::Windows::Forms::Button());
 			this->btnEnviar = (gcnew System::Windows::Forms::Button());
 			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
 			this->textStatus = (gcnew System::Windows::Forms::TextBox());
@@ -265,7 +275,7 @@ namespace RobotXView {
 			// 
 			// tabTask1
 			// 
-			this->tabTask1->Controls->Add(this->button1);
+			this->tabTask1->Controls->Add(this->btnSalir1);
 			this->tabTask1->Controls->Add(this->textBox6);
 			this->tabTask1->Controls->Add(this->textBox5);
 			this->tabTask1->Controls->Add(this->textBox4);
@@ -286,15 +296,15 @@ namespace RobotXView {
 			this->tabTask1->Text = L"Task 1";
 			this->tabTask1->UseVisualStyleBackColor = true;
 			// 
-			// button1
+			// btnSalir1
 			// 
-			this->button1->Location = System::Drawing::Point(99, 24);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(95, 43);
-			this->button1->TabIndex = 15;
-			this->button1->Text = L"Empezar";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &frmAutomata::button1_Click);
+			this->btnSalir1->Location = System::Drawing::Point(508, 427);
+			this->btnSalir1->Name = L"btnSalir1";
+			this->btnSalir1->Size = System::Drawing::Size(81, 35);
+			this->btnSalir1->TabIndex = 15;
+			this->btnSalir1->Text = L"Salir";
+			this->btnSalir1->UseVisualStyleBackColor = true;
+			this->btnSalir1->Click += gcnew System::EventHandler(this, &frmAutomata::button1_Click);
 			// 
 			// textBox6
 			// 
@@ -414,6 +424,9 @@ namespace RobotXView {
 			// 
 			// tabTask2
 			// 
+			this->tabTask2->Controls->Add(this->label7);
+			this->tabTask2->Controls->Add(this->textBox7);
+			this->tabTask2->Controls->Add(this->btnSalir2);
 			this->tabTask2->Controls->Add(this->textBox10);
 			this->tabTask2->Controls->Add(this->textBox11);
 			this->tabTask2->Controls->Add(this->textBox12);
@@ -439,9 +452,38 @@ namespace RobotXView {
 			this->tabTask2->Text = L"Task 2";
 			this->tabTask2->UseVisualStyleBackColor = true;
 			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->Location = System::Drawing::Point(62, 257);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(97, 16);
+			this->label7->TabIndex = 38;
+			this->label7->Text = L"Num Detected:";
+			// 
+			// textBox7
+			// 
+			this->textBox7->Location = System::Drawing::Point(173, 253);
+			this->textBox7->Name = L"textBox7";
+			this->textBox7->ReadOnly = true;
+			this->textBox7->Size = System::Drawing::Size(139, 20);
+			this->textBox7->TabIndex = 37;
+			// 
+			// btnSalir2
+			// 
+			this->btnSalir2->Location = System::Drawing::Point(520, 438);
+			this->btnSalir2->Name = L"btnSalir2";
+			this->btnSalir2->Size = System::Drawing::Size(81, 35);
+			this->btnSalir2->TabIndex = 36;
+			this->btnSalir2->Text = L"Salir";
+			this->btnSalir2->UseVisualStyleBackColor = true;
+			this->btnSalir2->Click += gcnew System::EventHandler(this, &frmAutomata::btnSalir2_Click);
+			// 
 			// textBox10
 			// 
-			this->textBox10->Location = System::Drawing::Point(168, 382);
+			this->textBox10->Location = System::Drawing::Point(171, 412);
 			this->textBox10->Name = L"textBox10";
 			this->textBox10->ReadOnly = true;
 			this->textBox10->Size = System::Drawing::Size(140, 20);
@@ -449,7 +491,7 @@ namespace RobotXView {
 			// 
 			// textBox11
 			// 
-			this->textBox11->Location = System::Drawing::Point(168, 337);
+			this->textBox11->Location = System::Drawing::Point(171, 367);
 			this->textBox11->Name = L"textBox11";
 			this->textBox11->ReadOnly = true;
 			this->textBox11->Size = System::Drawing::Size(140, 20);
@@ -457,7 +499,7 @@ namespace RobotXView {
 			// 
 			// textBox12
 			// 
-			this->textBox12->Location = System::Drawing::Point(168, 295);
+			this->textBox12->Location = System::Drawing::Point(171, 325);
 			this->textBox12->Name = L"textBox12";
 			this->textBox12->ReadOnly = true;
 			this->textBox12->Size = System::Drawing::Size(140, 20);
@@ -465,7 +507,7 @@ namespace RobotXView {
 			// 
 			// textBox13
 			// 
-			this->textBox13->Location = System::Drawing::Point(168, 258);
+			this->textBox13->Location = System::Drawing::Point(171, 288);
 			this->textBox13->Name = L"textBox13";
 			this->textBox13->ReadOnly = true;
 			this->textBox13->Size = System::Drawing::Size(140, 20);
@@ -516,7 +558,7 @@ namespace RobotXView {
 			this->label10->AutoSize = true;
 			this->label10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label10->Location = System::Drawing::Point(81, 382);
+			this->label10->Location = System::Drawing::Point(84, 412);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(74, 16);
 			this->label10->TabIndex = 26;
@@ -527,7 +569,7 @@ namespace RobotXView {
 			this->label11->AutoSize = true;
 			this->label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label11->Location = System::Drawing::Point(81, 338);
+			this->label11->Location = System::Drawing::Point(84, 368);
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(75, 16);
 			this->label11->TabIndex = 25;
@@ -538,7 +580,7 @@ namespace RobotXView {
 			this->label12->AutoSize = true;
 			this->label12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label12->Location = System::Drawing::Point(78, 295);
+			this->label12->Location = System::Drawing::Point(81, 325);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(80, 16);
 			this->label12->TabIndex = 24;
@@ -549,7 +591,7 @@ namespace RobotXView {
 			this->label13->AutoSize = true;
 			this->label13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label13->Location = System::Drawing::Point(84, 259);
+			this->label13->Location = System::Drawing::Point(87, 289);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(75, 16);
 			this->label13->TabIndex = 23;
@@ -612,6 +654,7 @@ namespace RobotXView {
 			// 
 			// tabTask3
 			// 
+			this->tabTask3->Controls->Add(this->btnSalir3);
 			this->tabTask3->Controls->Add(this->btnEnviar);
 			this->tabTask3->Controls->Add(this->textBox8);
 			this->tabTask3->Controls->Add(this->textStatus);
@@ -636,6 +679,16 @@ namespace RobotXView {
 			this->tabTask3->Text = L"Task 3";
 			this->tabTask3->UseVisualStyleBackColor = true;
 			this->tabTask3->Click += gcnew System::EventHandler(this, &frmAutomata::tabTask3_Click);
+			// 
+			// btnSalir3
+			// 
+			this->btnSalir3->Location = System::Drawing::Point(520, 438);
+			this->btnSalir3->Name = L"btnSalir3";
+			this->btnSalir3->Size = System::Drawing::Size(81, 35);
+			this->btnSalir3->TabIndex = 54;
+			this->btnSalir3->Text = L"Salir";
+			this->btnSalir3->UseVisualStyleBackColor = true;
+			this->btnSalir3->Click += gcnew System::EventHandler(this, &frmAutomata::btnSalir3_Click);
 			// 
 			// btnEnviar
 			// 
@@ -837,8 +890,8 @@ namespace RobotXView {
 		}
 	}
 private: System::Void frmAutomata_Load(System::Object^ sender, System::EventArgs^ e) {
-	objGestorConexion->EnviarDatos("automata \n", objGestorConexion->sClient);
-	Sleep(200);
+	/*objGestorConexion->EnviarDatos("automata \n", objGestorConexion->sClient);
+	Sleep(200);*/
 	//RobotXController::PuntoController^ objGestorPunto = gcnew PuntoController();
 	//double distancia = (this->objGestorConexion->RecibirPuntos_Distancia(objGestorPunto,this->objGestorConexion->sClient))/1000;
 	//this->objGestorConexion->EnviarDatos(Convert::ToString(distancia), this->objGestorConexion->sClient);
@@ -896,6 +949,10 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	{
 		MessageBox::Show("Ingrese el ID asignado");
 	}*/
+	objGestorConexion->EnviarDatos("salir \n", objGestorConexion->sClient);
+	Sleep(500);
+	this->tabControl1->SelectedTab = tabInicio;
+
 }
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 	String^ ColorAEnviar = this->txtColor->Text;
@@ -904,13 +961,23 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 	objGestorConexion->RecibirReporte3(this->objReporte3, objGestorConexion->sClient);
 
 	this->textCodigo->Text = this->objReporte3->listaReporte3[0]->codigo;
-	this->textDate->Text = this->objReporte3->listaReporte3[1]->fecha;
-	this->textTime->Text = this->objReporte3->listaReporte3[2]->tiempo;
-	this->textTeamID->Text = this->objReporte3->listaReporte3[3]->TeamID;
-	this->textStatus->Text = this->objReporte3->listaReporte3[5]->status;
+	this->textDate->Text = this->objReporte3->listaReporte3[0]->fecha;
+	this->textTime->Text = this->objReporte3->listaReporte3[0]->tiempo;
+	this->textTeamID->Text = this->objReporte3->listaReporte3[0]->TeamID;
+	this->textStatus->Text = this->objReporte3->listaReporte3[0]->status;
 
 }
 private: System::Void tabTask3_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void btnSalir3_Click(System::Object^ sender, System::EventArgs^ e) {
+	objGestorConexion->EnviarDatos("salir \n", objGestorConexion->sClient);
+	Sleep(500);
+	this->tabControl1->SelectedTab = tabInicio;
+}
+private: System::Void btnSalir2_Click(System::Object^ sender, System::EventArgs^ e) {
+	objGestorConexion->EnviarDatos("salir \n", objGestorConexion->sClient);
+	Sleep(500);
+	this->tabControl1->SelectedTab = tabInicio;
 }
 };
 }

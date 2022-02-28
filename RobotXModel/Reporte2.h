@@ -4,7 +4,7 @@ namespace RobotXModel {
 	using namespace System;
 	using namespace System::Collections::Generic;
 
-	public ref class Reporte3 {
+	public ref class Reporte2 {
 	public:
 		//double angulo;
 		//double distancia; /*distancia del centro del radar al punto*/
@@ -12,12 +12,12 @@ namespace RobotXModel {
 		String^ fecha;
 		String^ tiempo;
 		String^ TeamID;
-		String^ color;
-		String^ status;
+		String^ numDetected;
+		String^ Wildlife;
 
 	public:
 		//Reporte3();
-		Reporte3(String^ codigo, String^ fecha, String^ tiempo, String^ TeamID, String^ color, String^ status);
+		Reporte2(String^ codigo, String^ fecha, String^ tiempo, String^ TeamID, String^ numDetected, String^ Wildlife);
 	};
 
 }

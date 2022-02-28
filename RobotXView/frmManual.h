@@ -351,27 +351,11 @@ namespace RobotXView {
 			objGraphics->FillEllipse(objBrocha, (int)puntoX, (int)puntoY, 5, 5);	//se movio
 		}	
 	}
-
-	private: System::Void btnUp_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->objGestorConexion->EnviarDatos("w", this->objGestorConexion->sClient);
-	}
-	private: System::Void btnLeft_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->EnviarDatos("a", this->objGestorConexion->sClient);
-	}
-	private: System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->EnviarDatos("s", this->objGestorConexion->sClient);
-	}
-	private: System::Void btnRight_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->EnviarDatos("d", this->objGestorConexion->sClient);
-	}
 	private: System::Void frmManual_Load(System::Object^ sender, System::EventArgs^ e) {
 		this->objGestorConexion->EnviarDatos("manual \n", this->objGestorConexion->sClient);
 	//this->objGestorConexion->RecibirImagen(this->objGestorConexion->sClient);
 	//this->pbImagenEnviada->Image
 		//this->objGestorConexion->EnviarDatos("N \n", this->objGestorConexion->sClient);
-	}
-	private: System::Void btnParar_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		this->txtMensaje->Text = "";
@@ -381,36 +365,75 @@ namespace RobotXView {
 		if (error = 2)this->txtMensaje->Text = "No se recibieron los bytes esperados en el formato adecuado";
 		this->Radar->Invalidate();
 	}
-	private: System::Void frmManual_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-		if (e->KeyChar == (char)87 || e->KeyChar == (char)119) {
-			this->objGestorConexion->EnviarDatos("w", this->objGestorConexion->sClient);
-		}
-		if (e->KeyChar == (char)65 || e->KeyChar == (char)97) {
-			this->objGestorConexion->EnviarDatos("a", this->objGestorConexion->sClient);
-		}
-		if (e->KeyChar == (char)83 || e->KeyChar == (char)115) {
-			this->objGestorConexion->EnviarDatos("s", this->objGestorConexion->sClient);
-		}
-		if (e->KeyChar == (char)68 || e->KeyChar == (char)100) {
-			this->objGestorConexion->EnviarDatos("d", this->objGestorConexion->sClient);
-		}
-		if (e->KeyChar == (char)77 || e->KeyChar == (char)109) {
-			this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
-		}
-		this->Invalidate();
+private: System::Void frmManual_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
+
+	if (e->KeyChar == (char)87 || e->KeyChar == (char)119) {
+		this->objGestorConexion->EnviarDatos("w", this->objGestorConexion->sClient);
+	}
+	if (e->KeyChar == (char)65 || e->KeyChar == (char)97) {
+		this->objGestorConexion->EnviarDatos("a", this->objGestorConexion->sClient);
+	}
+	if (e->KeyChar == (char)83 || e->KeyChar == (char)115) {
+		this->objGestorConexion->EnviarDatos("s", this->objGestorConexion->sClient);
+	}
+	if (e->KeyChar == (char)68 || e->KeyChar == (char)100) {
+		this->objGestorConexion->EnviarDatos("d", this->objGestorConexion->sClient);
+	}
+	if (e->KeyChar == (char)77 || e->KeyChar == (char)109) {
+		this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
+	}
+	this->Invalidate();
+}
+
+/******************************************************************************/
+private: System::Void btnParar_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
+	this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
 }
 private: System::Void btnUP_plus_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
 	this->objGestorConexion->EnviarDatos("q", this->objGestorConexion->sClient);
 }
 private: System::Void btnBack2_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
 	this->objGestorConexion->EnviarDatos("x", this->objGestorConexion->sClient);
 }
 private: System::Void btnBack_plus_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
 	this->objGestorConexion->EnviarDatos("e", this->objGestorConexion->sClient);
 }
 private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
 	this->objGestorConexion->EnviarDatos("N", this->objGestorConexion->sClient);
 }
+private: System::Void btnUp_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
+	this->objGestorConexion->EnviarDatos("w", this->objGestorConexion->sClient);
+}
+private: System::Void btnLeft_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
+	this->objGestorConexion->EnviarDatos("a", this->objGestorConexion->sClient);
+}
+private: System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
+	this->objGestorConexion->EnviarDatos("s", this->objGestorConexion->sClient);
+}
+private: System::Void btnRight_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->objGestorConexion->EnviarDatos("arduino \n", this->objGestorConexion->sClient);
+	Sleep(500);
+	this->objGestorConexion->EnviarDatos("d", this->objGestorConexion->sClient);
+}
+/*******************************************************************************/
 private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) {
 	this->txtMensaje->Text = "";
 	int error = 1;
