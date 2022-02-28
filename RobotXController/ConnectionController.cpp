@@ -296,7 +296,7 @@ void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objG
                 bytes = bytes - ret;
                 x = x + ret;
                 if (bytes>0) {
-                    int ret = recv(sClient, revData, 20000, 0);
+                    ret = recv(sClient, revData, 20000, 0);
                    
                 }
                 
