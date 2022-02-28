@@ -21,6 +21,7 @@ namespace RobotXView {
 		frmAutomata(void)
 		{
 			InitializeComponent();
+			this->objReporte3 = gcnew Reporte3Controller();
 			//this->objGestorConexion = gcnew ConnectionController();
 			//
 			//TODO: agregar código de constructor aquí
@@ -45,6 +46,7 @@ namespace RobotXView {
 		}
 	private: System::Windows::Forms::Button^ btnTask1;
 	protected:
+	private: Reporte3Controller^ objReporte3;
 	private: ConnectionController^ objGestorConexion;
 	private: System::Windows::Forms::Button^ btnTask2;
 	private: System::Windows::Forms::Button^ btnTask3;
@@ -93,13 +95,21 @@ namespace RobotXView {
 	private: System::Windows::Forms::Label^ label17;
 	private: System::Windows::Forms::Label^ label18;
 	private: System::Windows::Forms::TextBox^ textBox8;
-	private: System::Windows::Forms::TextBox^ textBox9;
-	private: System::Windows::Forms::TextBox^ textBox19;
-	private: System::Windows::Forms::TextBox^ textBox20;
-	private: System::Windows::Forms::TextBox^ textBox21;
-	private: System::Windows::Forms::TextBox^ textBox22;
-	private: System::Windows::Forms::TextBox^ textBox23;
+	private: System::Windows::Forms::TextBox^ textStatus;
+
+	private: System::Windows::Forms::TextBox^ txtColor;
+	private: System::Windows::Forms::TextBox^ textTeamID;
+
+
+	private: System::Windows::Forms::TextBox^ textTime;
+
+	private: System::Windows::Forms::TextBox^ textDate;
+
+	private: System::Windows::Forms::TextBox^ textCodigo;
+
 	private: System::Windows::Forms::TextBox^ textBox24;
+
+
 	private: System::Windows::Forms::Label^ label8;
 	private: System::Windows::Forms::Label^ label9;
 	private: System::Windows::Forms::Label^ label19;
@@ -109,6 +119,8 @@ namespace RobotXView {
 	private: System::Windows::Forms::Label^ label23;
 	private: System::Windows::Forms::Label^ label24;
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ btnEnviar;
+
 
 	private:
 		/// <summary>
@@ -129,6 +141,7 @@ namespace RobotXView {
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabInicio = (gcnew System::Windows::Forms::TabPage());
 			this->tabTask1 = (gcnew System::Windows::Forms::TabPage());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
@@ -161,13 +174,14 @@ namespace RobotXView {
 			this->label17 = (gcnew System::Windows::Forms::Label());
 			this->label18 = (gcnew System::Windows::Forms::Label());
 			this->tabTask3 = (gcnew System::Windows::Forms::TabPage());
+			this->btnEnviar = (gcnew System::Windows::Forms::Button());
 			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox9 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox19 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox20 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox21 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox22 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox23 = (gcnew System::Windows::Forms::TextBox());
+			this->textStatus = (gcnew System::Windows::Forms::TextBox());
+			this->txtColor = (gcnew System::Windows::Forms::TextBox());
+			this->textTeamID = (gcnew System::Windows::Forms::TextBox());
+			this->textTime = (gcnew System::Windows::Forms::TextBox());
+			this->textDate = (gcnew System::Windows::Forms::TextBox());
+			this->textCodigo = (gcnew System::Windows::Forms::TextBox());
 			this->textBox24 = (gcnew System::Windows::Forms::TextBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
@@ -177,7 +191,6 @@ namespace RobotXView {
 			this->label22 = (gcnew System::Windows::Forms::Label());
 			this->label23 = (gcnew System::Windows::Forms::Label());
 			this->label24 = (gcnew System::Windows::Forms::Label());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->tabControl1->SuspendLayout();
 			this->tabInicio->SuspendLayout();
 			this->tabTask1->SuspendLayout();
@@ -207,7 +220,7 @@ namespace RobotXView {
 			this->btnTask2->Name = L"btnTask2";
 			this->btnTask2->Size = System::Drawing::Size(201, 168);
 			this->btnTask2->TabIndex = 1;
-			this->btnTask2->Text = L"Task2";
+			this->btnTask2->Text = L"Task3";
 			this->btnTask2->UseVisualStyleBackColor = true;
 			this->btnTask2->Click += gcnew System::EventHandler(this, &frmAutomata::btnTask2_Click);
 			// 
@@ -220,7 +233,7 @@ namespace RobotXView {
 			this->btnTask3->Name = L"btnTask3";
 			this->btnTask3->Size = System::Drawing::Size(201, 165);
 			this->btnTask3->TabIndex = 2;
-			this->btnTask3->Text = L"Task3";
+			this->btnTask3->Text = L"Task2";
 			this->btnTask3->UseVisualStyleBackColor = true;
 			this->btnTask3->Click += gcnew System::EventHandler(this, &frmAutomata::btnTask3_Click);
 			// 
@@ -230,7 +243,7 @@ namespace RobotXView {
 			this->tabControl1->Controls->Add(this->tabTask1);
 			this->tabControl1->Controls->Add(this->tabTask2);
 			this->tabControl1->Controls->Add(this->tabTask3);
-			this->tabControl1->Location = System::Drawing::Point(0, 0);
+			this->tabControl1->Location = System::Drawing::Point(-3, 12);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
 			this->tabControl1->Size = System::Drawing::Size(618, 505);
@@ -272,6 +285,16 @@ namespace RobotXView {
 			this->tabTask1->TabIndex = 1;
 			this->tabTask1->Text = L"Task 1";
 			this->tabTask1->UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(99, 24);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(95, 43);
+			this->button1->TabIndex = 15;
+			this->button1->Text = L"Empezar";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &frmAutomata::button1_Click);
 			// 
 			// textBox6
 			// 
@@ -589,13 +612,14 @@ namespace RobotXView {
 			// 
 			// tabTask3
 			// 
+			this->tabTask3->Controls->Add(this->btnEnviar);
 			this->tabTask3->Controls->Add(this->textBox8);
-			this->tabTask3->Controls->Add(this->textBox9);
-			this->tabTask3->Controls->Add(this->textBox19);
-			this->tabTask3->Controls->Add(this->textBox20);
-			this->tabTask3->Controls->Add(this->textBox21);
-			this->tabTask3->Controls->Add(this->textBox22);
-			this->tabTask3->Controls->Add(this->textBox23);
+			this->tabTask3->Controls->Add(this->textStatus);
+			this->tabTask3->Controls->Add(this->txtColor);
+			this->tabTask3->Controls->Add(this->textTeamID);
+			this->tabTask3->Controls->Add(this->textTime);
+			this->tabTask3->Controls->Add(this->textDate);
+			this->tabTask3->Controls->Add(this->textCodigo);
 			this->tabTask3->Controls->Add(this->textBox24);
 			this->tabTask3->Controls->Add(this->label8);
 			this->tabTask3->Controls->Add(this->label9);
@@ -611,6 +635,17 @@ namespace RobotXView {
 			this->tabTask3->TabIndex = 3;
 			this->tabTask3->Text = L"Task 3";
 			this->tabTask3->UseVisualStyleBackColor = true;
+			this->tabTask3->Click += gcnew System::EventHandler(this, &frmAutomata::tabTask3_Click);
+			// 
+			// btnEnviar
+			// 
+			this->btnEnviar->Location = System::Drawing::Point(318, 260);
+			this->btnEnviar->Name = L"btnEnviar";
+			this->btnEnviar->Size = System::Drawing::Size(59, 23);
+			this->btnEnviar->TabIndex = 53;
+			this->btnEnviar->Text = L"Enviar";
+			this->btnEnviar->UseVisualStyleBackColor = true;
+			this->btnEnviar->Click += gcnew System::EventHandler(this, &frmAutomata::button2_Click);
 			// 
 			// textBox8
 			// 
@@ -620,53 +655,52 @@ namespace RobotXView {
 			this->textBox8->Size = System::Drawing::Size(140, 20);
 			this->textBox8->TabIndex = 52;
 			// 
-			// textBox9
+			// textStatus
 			// 
-			this->textBox9->Location = System::Drawing::Point(161, 297);
-			this->textBox9->Name = L"textBox9";
-			this->textBox9->ReadOnly = true;
-			this->textBox9->Size = System::Drawing::Size(140, 20);
-			this->textBox9->TabIndex = 51;
+			this->textStatus->Location = System::Drawing::Point(161, 297);
+			this->textStatus->Name = L"textStatus";
+			this->textStatus->ReadOnly = true;
+			this->textStatus->Size = System::Drawing::Size(140, 20);
+			this->textStatus->TabIndex = 51;
 			// 
-			// textBox19
+			// txtColor
 			// 
-			this->textBox19->Location = System::Drawing::Point(161, 260);
-			this->textBox19->Name = L"textBox19";
-			this->textBox19->ReadOnly = true;
-			this->textBox19->Size = System::Drawing::Size(140, 20);
-			this->textBox19->TabIndex = 50;
+			this->txtColor->Location = System::Drawing::Point(161, 260);
+			this->txtColor->Name = L"txtColor";
+			this->txtColor->Size = System::Drawing::Size(140, 20);
+			this->txtColor->TabIndex = 50;
 			// 
-			// textBox20
+			// textTeamID
 			// 
-			this->textBox20->Location = System::Drawing::Point(162, 219);
-			this->textBox20->Name = L"textBox20";
-			this->textBox20->ReadOnly = true;
-			this->textBox20->Size = System::Drawing::Size(140, 20);
-			this->textBox20->TabIndex = 49;
+			this->textTeamID->Location = System::Drawing::Point(162, 219);
+			this->textTeamID->Name = L"textTeamID";
+			this->textTeamID->ReadOnly = true;
+			this->textTeamID->Size = System::Drawing::Size(140, 20);
+			this->textTeamID->TabIndex = 49;
 			// 
-			// textBox21
+			// textTime
 			// 
-			this->textBox21->Location = System::Drawing::Point(162, 177);
-			this->textBox21->Name = L"textBox21";
-			this->textBox21->ReadOnly = true;
-			this->textBox21->Size = System::Drawing::Size(140, 20);
-			this->textBox21->TabIndex = 48;
+			this->textTime->Location = System::Drawing::Point(162, 177);
+			this->textTime->Name = L"textTime";
+			this->textTime->ReadOnly = true;
+			this->textTime->Size = System::Drawing::Size(140, 20);
+			this->textTime->TabIndex = 48;
 			// 
-			// textBox22
+			// textDate
 			// 
-			this->textBox22->Location = System::Drawing::Point(162, 138);
-			this->textBox22->Name = L"textBox22";
-			this->textBox22->ReadOnly = true;
-			this->textBox22->Size = System::Drawing::Size(140, 20);
-			this->textBox22->TabIndex = 47;
+			this->textDate->Location = System::Drawing::Point(162, 138);
+			this->textDate->Name = L"textDate";
+			this->textDate->ReadOnly = true;
+			this->textDate->Size = System::Drawing::Size(140, 20);
+			this->textDate->TabIndex = 47;
 			// 
-			// textBox23
+			// textCodigo
 			// 
-			this->textBox23->Location = System::Drawing::Point(162, 97);
-			this->textBox23->Name = L"textBox23";
-			this->textBox23->ReadOnly = true;
-			this->textBox23->Size = System::Drawing::Size(140, 20);
-			this->textBox23->TabIndex = 46;
+			this->textCodigo->Location = System::Drawing::Point(162, 97);
+			this->textCodigo->Name = L"textCodigo";
+			this->textCodigo->ReadOnly = true;
+			this->textCodigo->Size = System::Drawing::Size(140, 20);
+			this->textCodigo->TabIndex = 46;
 			// 
 			// textBox24
 			// 
@@ -764,21 +798,11 @@ namespace RobotXView {
 			this->label24->TabIndex = 36;
 			this->label24->Text = L"Tarea designada:";
 			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(99, 24);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(95, 43);
-			this->button1->TabIndex = 15;
-			this->button1->Text = L"Empezar";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &frmAutomata::button1_Click);
-			// 
 			// frmAutomata
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(627, 510);
+			this->ClientSize = System::Drawing::Size(614, 519);
 			this->Controls->Add(this->tabControl1);
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"frmAutomata";
@@ -803,7 +827,7 @@ namespace RobotXView {
 		int valor = objGestorConexion->RealizarConexionSockets();
 
 		if (objGestorConexion->Conexion != "") {
-			objGestorConexion->EnviarDatos("task3 \n", objGestorConexion->sClient);
+			objGestorConexion->EnviarDatos("task2 \n", objGestorConexion->sClient);
 			//Sleep(500);
 			//objGestorConexion->EnviarTeamID(CodigoTask3, objGestorConexion->sClient);
 		}
@@ -830,7 +854,7 @@ private: System::Void btnTask1_Click(System::Object^ sender, System::EventArgs^ 
 	
 	if (objGestorConexion->Conexion != "") {
 		objGestorConexion->EnviarDatos("task1 \n", objGestorConexion->sClient);
-		//Sleep(500);
+		Sleep(500);
 		//objGestorConexion->EnviarTeamID(CodigoTask1, objGestorConexion->sClient);
 	}
 	else
@@ -845,7 +869,7 @@ private: System::Void btnTask2_Click(System::Object^ sender, System::EventArgs^ 
 	int valor = objGestorConexion->RealizarConexionSockets();
 
 	if (objGestorConexion->Conexion != "") {
-		objGestorConexion->EnviarDatos("task2 \n", objGestorConexion->sClient);
+		objGestorConexion->EnviarDatos("task3 \n", objGestorConexion->sClient);
 		//Sleep(500);
 		//objGestorConexion->EnviarTeamID(CodigoTask2, objGestorConexion->sClient);
 	}
@@ -872,6 +896,21 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	{
 		MessageBox::Show("Ingrese el ID asignado");
 	}*/
+}
+private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ ColorAEnviar = this->txtColor->Text;
+	objGestorConexion->EnviarDatos(ColorAEnviar, objGestorConexion->sClient);
+	Sleep(500);
+	objGestorConexion->RecibirReporte3(objReporte3, objGestorConexion->sClient);
+
+	this->textCodigo->Text = objReporte3->listaReporte3[0]->codigo;
+	this->textDate->Text = objReporte3->listaReporte3[1]->fecha;
+	this->textTime->Text = objReporte3->listaReporte3[2]->tiempo;
+	this->textTeamID->Text = objReporte3->listaReporte3[3]->TeamID;
+	this->textStatus->Text = objReporte3->listaReporte3[5]->status;
+
+}
+private: System::Void tabTask3_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

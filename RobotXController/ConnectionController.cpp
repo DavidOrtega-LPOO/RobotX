@@ -541,6 +541,51 @@ void RobotXController::ConnectionController::RecibirInsData(InsDataController^ o
     }
 }
 
+void ConnectionController::RecibirReporte3(Reporte3Controller^ objGestorReporte3, SOCKET sClient) {
+    char revData[1024];
+    char buffer[1024];
+    //Recibir datos 
+    for (int i = 0; i < 1024; i++) {
+        revData[i] = '*';
+    }
+
+    int ret = recv(sClient, revData, 1024, 0);
+
+    if (ret > 0)
+    {
+        revData[ret] = 0x00;
+        printf(revData);
+        //cout << endl;
+        //argv[argc] = revData;
+        int j = 0;
+        int cantidad = 0;
+        int i = 0;
+        while (j < 2) {
+            if (revData[i] == '{') {
+                i++;
+                j++;
+            }
+            if (revData[i] == '}') {
+                break;
+                j++;
+
+            }
+            if (revData[i] == '*') {
+                break;
+                j++;
+
+            }
+            buffer[cantidad] = revData[i];
+            i++;
+            cantidad++;
+        }
+        String^ lineas = gcnew String(buffer);
+        objGestorReporte3->LeerDataTask3(lineas);
+        //objGestorPunto->DistanciaPromedioPuntos(lineas);
+
+    }
+}
+
 /*int RobotXController::ReconoceTeamID(String^ codigoInsertado) {
     int Reconoce = 0;
     //array<String^>^ opciones = { "$RXPTH", "$RXENC", "$RXDOK" };
