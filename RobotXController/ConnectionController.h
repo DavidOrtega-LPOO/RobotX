@@ -27,7 +27,7 @@ namespace RobotXController {
 		//ConnectionController(char Datos);
 		int RecibirDatosConexion(PuntoController^ objGestorPunto);
 		int RealizarConexionSockets();
-		void RecibirPuntos(PuntoController^ objGestorPunto, SOCKET sClient);
+		void RecibirPuntos(PuntoController^ objGestorPunto, SOCKET sClient,int Error);
 		void RecibirImagen(SOCKET sClient);
 		void EnviarDatos(String^ mensajeEnviar, SOCKET sClient);
 		void EnviarTeamID(String^ mensajeEnviar, SOCKET sClient);

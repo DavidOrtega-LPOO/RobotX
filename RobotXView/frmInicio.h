@@ -341,15 +341,16 @@ private: System::Void btnConnection_Click(System::Object^ sender, System::EventA
 		if (objGestorConexion->Conexion != "") {
 			this->txtConnection->Text = objGestorConexion->Conexion;
 		}
-
-		/************************TeamID********************************/
-		objGestorConexion->EnviarDatos("Team ID \n", objGestorConexion->sClient);
-		Sleep(500);
-		objGestorConexion->EnviarTeamID(TeamID, objGestorConexion->sClient);
-		/*********************INS DATA**********************************/
-		objGestorConexion->RecibirInsData(objGestorInsData, objGestorConexion->sClient);
-		this->txtLatitud->Text = Convert::ToString(objGestorInsData->listaInsData[0]->latitud);
-		this->txtLongitud->Text = Convert::ToString(objGestorInsData->listaInsData[0]->longitud);
+		
+		///************************TeamID********************************/
+		//objGestorConexion->EnviarDatos("Team ID \n", objGestorConexion->sClient);
+		//Sleep(500);
+		//objGestorConexion->EnviarTeamID(TeamID, objGestorConexion->sClient);
+		///*********************INS DATA**********************************/
+		//objGestorConexion->RecibirInsData(objGestorInsData, objGestorConexion->sClient);
+		//this->txtLatitud->Text = Convert::ToString(objGestorInsData->listaInsData[0]->latitud);
+		//this->txtLongitud->Text = Convert::ToString(objGestorInsData->listaInsData[0]->longitud);
+		
 	}
 	else
 	{

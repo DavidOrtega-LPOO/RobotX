@@ -234,7 +234,7 @@ int RobotXController::ConnectionController::DesconectarSockets() {
     this->slisten = 0;
     return 0;
 }
-void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objGestorPunto, SOCKET sClient) {
+void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objGestorPunto, SOCKET sClient,int Error) {
 
     char revData[20000];
     char buffer[20000];
@@ -261,9 +261,17 @@ void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objG
         for (int i = 0; i < retBytes; i++) {
             BytesEnviados[i] = revData[i];
         }
-        String^ Bytes_String = gcnew String(BytesEnviados);
-        bytes = Convert::ToInt32(Bytes_String);
-        bytesRecibidos = bytes;
+        try
+        {
+            String^ Bytes_String = gcnew String(BytesEnviados);
+            bytes = Convert::ToInt32(Bytes_String);
+            bytesRecibidos = bytes;
+        }
+        catch (...)
+        {
+            Error = 2;
+        }
+       
     }
     
     //Recibir Puntos
@@ -289,6 +297,7 @@ void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objG
                 x = x + ret;
                 if (bytes>0) {
                     int ret = recv(sClient, revData, 20000, 0);
+                   
                 }
                 
             }
@@ -315,10 +324,12 @@ void RobotXController::ConnectionController::RecibirPuntos(PuntoController^ objG
             }
             bufferFinal[bytesRecibidos-2] = 0x00;
             String^ lineas = gcnew String(bufferFinal);
-            objGestorPunto->LeerPuntosArray(lineas);
+            Error =objGestorPunto->LeerPuntosArray(lineas);
+           
         }
         else {
             revData[ret] = 0x00;
+            buffer[ret-2] = 0x00;
             int j = 0;
             int cantidad = 0;
             int i = 0;

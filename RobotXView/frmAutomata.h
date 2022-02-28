@@ -813,7 +813,9 @@ namespace RobotXView {
 		}
 	}
 private: System::Void frmAutomata_Load(System::Object^ sender, System::EventArgs^ e) {
-	RobotXController::PuntoController^ objGestorPunto = gcnew PuntoController();
+	objGestorConexion->EnviarDatos("automata \n", objGestorConexion->sClient);
+	Sleep(200);
+	//RobotXController::PuntoController^ objGestorPunto = gcnew PuntoController();
 	//double distancia = (this->objGestorConexion->RecibirPuntos_Distancia(objGestorPunto,this->objGestorConexion->sClient))/1000;
 	//this->objGestorConexion->EnviarDatos(Convert::ToString(distancia), this->objGestorConexion->sClient);
 }

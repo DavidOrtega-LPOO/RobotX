@@ -30,7 +30,7 @@ void RobotXController::PuntoController::LeerPuntos() {
         }
     }
 }
-void RobotXController::PuntoController::LeerPuntosArray(String^ Lineas) {
+int RobotXController::PuntoController::LeerPuntosArray(String^ Lineas) {
     this->listaPuntos->Clear();
 
     String^ separadores = ",";
@@ -39,11 +39,17 @@ void RobotXController::PuntoController::LeerPuntosArray(String^ Lineas) {
     array<String^>^ Angulo_Distancia = Lineas->Split(separadores->ToCharArray());
     for each (String ^ LineasAngulo_Distancia in Angulo_Distancia) {
         array<String^>^ Angulo_Distancia2 = LineasAngulo_Distancia->Split(secondSeparador->ToCharArray());
-        double angulo = Convert::ToDouble(Angulo_Distancia2[0]);
-        double distancia = Convert::ToDouble(Angulo_Distancia2[1]);
+        //if (sizeof(Angulo_Distancia2)==2) {
+        try{
+            double angulo = Convert::ToDouble(Angulo_Distancia2[0]);
+            double distancia = Convert::ToDouble(Angulo_Distancia2[1]);
 
-        punto^ objPunto = gcnew punto(angulo, distancia);
-        this->listaPuntos->Add(objPunto);
+            punto^ objPunto = gcnew punto(angulo, distancia);
+            this->listaPuntos->Add(objPunto);
+        }
+        catch(...) {
+            return 0;
+        }
     }
 }
 

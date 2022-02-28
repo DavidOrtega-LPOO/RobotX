@@ -37,7 +37,7 @@ namespace RobotXView {
 			this->objGestorConexion = objGestorConexion;
 			this->objBrocha = gcnew SolidBrush(Color::Black);
 			this->objGestorPunto = gcnew PuntoController();
-			this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+			this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient, error);
 		}
 
 	protected:
@@ -56,6 +56,7 @@ namespace RobotXView {
 	private:ConnectionController^ objGestorConexion;
 	private: SolidBrush^ objBrocha;
 	private: PuntoController^ objGestorPunto;
+	private: int error;
 	private: System::Windows::Forms::Button^ btnUp;
 	private: System::Windows::Forms::Button^ btnLeft;
 	private: System::Windows::Forms::Button^ btnBack;
@@ -68,7 +69,8 @@ namespace RobotXView {
 	private: System::Windows::Forms::Button^ btnBack_plus;
 	private: System::Windows::Forms::Button^ btnStart;
 	private: System::Windows::Forms::Timer^ timer2;
-	private: System::Windows::Forms::Button^ btnActualizar;
+	private: System::Windows::Forms::TextBox^ txtMensaje;
+
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -99,7 +101,7 @@ namespace RobotXView {
 			this->btnBack_plus = (gcnew System::Windows::Forms::Button());
 			this->btnStart = (gcnew System::Windows::Forms::Button());
 			this->timer2 = (gcnew System::Windows::Forms::Timer(this->components));
-			this->btnActualizar = (gcnew System::Windows::Forms::Button());
+			this->txtMensaje = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbImagenEnviada))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -223,22 +225,20 @@ namespace RobotXView {
 			this->timer2->Interval = 7000;
 			this->timer2->Tick += gcnew System::EventHandler(this, &frmManual::timer2_Tick);
 			// 
-			// btnActualizar
+			// txtMensaje
 			// 
-			this->btnActualizar->Location = System::Drawing::Point(535, 192);
-			this->btnActualizar->Name = L"btnActualizar";
-			this->btnActualizar->Size = System::Drawing::Size(102, 34);
-			this->btnActualizar->TabIndex = 13;
-			this->btnActualizar->Text = L"Actualizar";
-			this->btnActualizar->UseVisualStyleBackColor = true;
-			this->btnActualizar->Click += gcnew System::EventHandler(this, &frmManual::btnActualizar_Click);
+			this->txtMensaje->Location = System::Drawing::Point(644, 729);
+			this->txtMensaje->Name = L"txtMensaje";
+			this->txtMensaje->ReadOnly = true;
+			this->txtMensaje->Size = System::Drawing::Size(701, 22);
+			this->txtMensaje->TabIndex = 13;
 			// 
 			// frmManual
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1357, 775);
-			this->Controls->Add(this->btnActualizar);
+			this->Controls->Add(this->txtMensaje);
 			this->Controls->Add(this->btnStart);
 			this->Controls->Add(this->btnBack_plus);
 			this->Controls->Add(this->btnBack2);
@@ -256,6 +256,7 @@ namespace RobotXView {
 			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &frmManual::frmManual_KeyPress);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbImagenEnviada))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -364,6 +365,7 @@ namespace RobotXView {
 	this->objGestorConexion->EnviarDatos("d", this->objGestorConexion->sClient);
 	}
 	private: System::Void frmManual_Load(System::Object^ sender, System::EventArgs^ e) {
+		this->objGestorConexion->EnviarDatos("manual \n", this->objGestorConexion->sClient);
 	//this->objGestorConexion->RecibirImagen(this->objGestorConexion->sClient);
 	//this->pbImagenEnviada->Image
 		//this->objGestorConexion->EnviarDatos("N \n", this->objGestorConexion->sClient);
@@ -372,8 +374,11 @@ namespace RobotXView {
 		this->objGestorConexion->EnviarDatos("M", this->objGestorConexion->sClient);
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
-		
-		this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
+		this->txtMensaje->Text = "";
+		int error=1;
+		this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient,error);
+		if (error = 0)this->txtMensaje->Text = "Error en la recepción de puntos";
+		if (error = 2)this->txtMensaje->Text = "No se recibieron los bytes esperados en el formato adecuado";
 		this->Radar->Invalidate();
 	}
 	private: System::Void frmManual_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
@@ -407,8 +412,11 @@ private: System::Void btnStart_Click(System::Object^ sender, System::EventArgs^ 
 	this->objGestorConexion->EnviarDatos("N", this->objGestorConexion->sClient);
 }
 private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) {
-	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient);
-	//this->Invalidate();
+	this->txtMensaje->Text = "";
+	int error = 1;
+	this->objGestorConexion->RecibirPuntos(this->objGestorPunto, this->objGestorConexion->sClient, error);
+	if (error = 0)this->txtMensaje->Text = "Error en la recepción de puntos";
+	if (error = 2)this->txtMensaje->Text = "No se recibieron los bytes esperados en el formato adecuado";
 	this->Radar->Invalidate();
 }
 private: System::Void btnActualizar_Click(System::Object^ sender, System::EventArgs^ e) {
