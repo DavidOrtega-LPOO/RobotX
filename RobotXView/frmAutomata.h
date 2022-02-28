@@ -901,13 +901,13 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 	String^ ColorAEnviar = this->txtColor->Text;
 	objGestorConexion->EnviarDatos(ColorAEnviar, objGestorConexion->sClient);
 	Sleep(500);
-	objGestorConexion->RecibirReporte3(objReporte3, objGestorConexion->sClient);
+	objGestorConexion->RecibirReporte3(this->objReporte3, objGestorConexion->sClient);
 
-	this->textCodigo->Text = objReporte3->listaReporte3[0]->codigo;
-	this->textDate->Text = objReporte3->listaReporte3[1]->fecha;
-	this->textTime->Text = objReporte3->listaReporte3[2]->tiempo;
-	this->textTeamID->Text = objReporte3->listaReporte3[3]->TeamID;
-	this->textStatus->Text = objReporte3->listaReporte3[5]->status;
+	this->textCodigo->Text = this->objReporte3->listaReporte3[0]->codigo;
+	this->textDate->Text = this->objReporte3->listaReporte3[1]->fecha;
+	this->textTime->Text = this->objReporte3->listaReporte3[2]->tiempo;
+	this->textTeamID->Text = this->objReporte3->listaReporte3[3]->TeamID;
+	this->textStatus->Text = this->objReporte3->listaReporte3[5]->status;
 
 }
 private: System::Void tabTask3_Click(System::Object^ sender, System::EventArgs^ e) {
